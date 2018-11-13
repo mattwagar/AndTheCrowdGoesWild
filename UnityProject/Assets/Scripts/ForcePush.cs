@@ -24,7 +24,7 @@ public class ForcePush : MonoBehaviour {
 	
 	public void ForcePushGesture(){
 		averageDistance =  AverageDistance(cachedPositions);
-		if(onForcePush != null && averageDistance > distanceThreshold){
+		if(onForcePush != null && onForcePush.StoryListenerAction != null && averageDistance > distanceThreshold){
 			pushed = true;
 			onForcePush.StoryListenerAction.Invoke();
 		}
