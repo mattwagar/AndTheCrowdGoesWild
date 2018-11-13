@@ -26,8 +26,7 @@ public class SphereAppear : MonoBehaviour
     }
 
 	public void CenterMarble(){
-		Debug.Log("CenterMarble");
-		 transform.position = Vector3.Lerp(ThumbPoint.position, IndexPoint.position, 0.5f);
+		transform.position = Vector3.Lerp(ThumbPoint.position, IndexPoint.position, 0.5f);
         Vector3 _direction = (ThumbPoint.position - IndexPoint.position).normalized;
         transform.rotation = Quaternion.LookRotation(_direction);
 
@@ -56,6 +55,7 @@ public class SphereAppear : MonoBehaviour
 			Popped = false;
 			poseState = PoseState.Idle; 
 		}
+
         // transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * RotationSpeed);
 	}
 
