@@ -47,13 +47,21 @@ public class GhostAnimManager : MonoBehaviour {
 		foreach(GameObject g in ghosties)
 		{
 			float rand = Random.Range(0f,1f);
-			if (rand > 0.5f)
+			if (rand < 0.25f)
 			{
 				g.GetComponent<Animator>().Play("IdleAnimSpeed1");
 			}
-			else
+			else if (rand < 0.5f && rand > 0.25f)
 			{
 				g.GetComponent<Animator>().Play("IdleAnimSpeed2");
+			}
+			else if (rand < 0.75f && rand > 0.5f)
+			{
+				g.GetComponent<Animator>().Play("IdleAnimSpeed3");
+			}
+			else
+			{
+				g.GetComponent<Animator>().Play("IdleAnimSpeed4");
 			}
 		}
 	}
