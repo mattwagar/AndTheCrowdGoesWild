@@ -25,6 +25,10 @@ public class SphereAppear : MonoBehaviour
         _distance = Vector3.Distance(ThumbPoint.position, IndexPoint.position);
     }
 
+	public void ResetPop(){
+		Popped = false;
+	}
+
 	public void CenterMarble(){
 		transform.position = Vector3.Lerp(ThumbPoint.position, IndexPoint.position, 0.5f);
         Vector3 _direction = (ThumbPoint.position - IndexPoint.position).normalized;

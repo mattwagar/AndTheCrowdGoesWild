@@ -19,7 +19,7 @@ public class ForcePush : MonoBehaviour {
 		pushed = false;
 		averageDistance = 0f;
 		Vector3 startPos = transform.position;
-		cachedPositions = new Vector3[]{startPos,startPos,startPos,startPos,startPos};
+		cachedPositions = new Vector3[]{startPos,startPos,startPos};
 	}
 	
 	public void ForcePushGesture(){
@@ -28,7 +28,7 @@ public class ForcePush : MonoBehaviour {
 			pushed = true;
 			onForcePush.StoryListenerAction.Invoke();
 		}
-		cachedPositions = new Vector3[]{transform.position,cachedPositions[0],cachedPositions[1],cachedPositions[2],cachedPositions[3]};
+		cachedPositions = new Vector3[]{transform.position,cachedPositions[0],cachedPositions[1]};
 	}
 
 	float AverageDistance(Vector3[] vecs){

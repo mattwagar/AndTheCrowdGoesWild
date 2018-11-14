@@ -74,7 +74,7 @@ namespace Leap.Unity.Interaction {
     }
 
     [Tooltip("The minimum and maximum horizontal extents that the slider can slide to in world space.")]
-    [MinMax(-0.5f, 0.5f)]
+    // [MinMax(-0.5f, 0.5f)]
     public Vector2 horizontalSlideLimits = new Vector2(-0.05f, 0.05f);
 
     [Tooltip("The number of discrete quantized notches **beyond the first** that this "
@@ -121,7 +121,7 @@ namespace Leap.Unity.Interaction {
       }
     }
 
-    [MinMax(-0.5f, 0.5f)]
+    // [MinMax(-0.5f, 0.5f)]
     [Tooltip("The minimum and maximum vertical extents that the slider can slide to in world space.")]
     public Vector2 verticalSlideLimits = new Vector2(0f, 0f);
 
