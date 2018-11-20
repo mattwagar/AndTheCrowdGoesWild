@@ -68,9 +68,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1567470883403018}
-  m_LocalRotation: {x: 0.61350334, y: 0.40582848, z: 0.435911, w: -0.51855433}
-  m_LocalPosition: {x: -0.01, y: 1.81, z: 0.01}
-  m_LocalScale: {x: 0.111610144, y: 0.107848495, z: 0.3378626}
+  m_LocalRotation: {x: 0.6135033, y: 0.4058285, z: 0.43591097, w: -0.51855433}
+  m_LocalPosition: {x: -0.0100004915, y: 3.2892697, z: 0.010000553}
+  m_LocalScale: {x: 0.113503315, y: 0.11170683, z: 0.61407053}
   m_Children: []
   m_Father: {fileID: 4520259280166156}
   m_RootOrder: 0
@@ -96,8 +96,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1813293511907152}
   m_LocalRotation: {x: -0.42246735, y: 0.008117159, z: 0.010774199, w: 0.90627784}
-  m_LocalPosition: {x: -4.19, y: -0.08, z: 11.09}
-  m_LocalScale: {x: 7.86, y: 5.47, z: 11.67209}
+  m_LocalPosition: {x: -3.4934742, y: 1.7182583, z: 12.438972}
+  m_LocalScale: {x: 7.86, y: 3.01, z: 11.67209}
   m_Children:
   - {fileID: 4320651327656736}
   m_Father: {fileID: 4435956082040756}
@@ -172,6 +172,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yPosLock: 10
+  xRotLock: 0
+  yRotLock: 0
+  zRotLock: 0
 --- !u!135 &135981696259057500
 SphereCollider:
   m_ObjectHideFlags: 1
