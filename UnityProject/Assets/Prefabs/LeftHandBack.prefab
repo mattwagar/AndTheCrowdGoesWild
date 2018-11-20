@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 23370244212626444}
   - component: {fileID: 135991407065231778}
   - component: {fileID: 54164800609408790}
+  - component: {fileID: 114131494736152744}
   m_Layer: 0
   m_Name: StormyLeftCloud
   m_TagString: Untagged
@@ -82,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1339702525574114}
   m_LocalRotation: {x: -0.5885541, y: -0.40434834, z: -0.42870215, w: 0.5534628}
-  m_LocalPosition: {x: -0.182, y: 2.193, z: -0.221}
+  m_LocalPosition: {x: -0.19, y: 2, z: -0.219}
   m_LocalScale: {x: 0.11417966, y: 0.11598191, z: 0.37969047}
   m_Children: []
   m_Father: {fileID: 4978043555240038}
@@ -159,6 +160,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &114131494736152744
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1545620589265104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 813ff02677b10864c98ee6c4ddc89f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yPosLock: 10.02
 --- !u!135 &135991407065231778
 SphereCollider:
   m_ObjectHideFlags: 1
