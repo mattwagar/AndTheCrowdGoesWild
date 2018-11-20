@@ -60,12 +60,12 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _Exponent: 1
-    - _Exponent1: 1
+    - _Exponent1: 1.6
     - _Exponent2: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Intensity: 1
+    - _Intensity: 0.9
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -87,9 +87,9 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color1: {r: 0.23529412, g: 0.374678, b: 0.5294118, a: 0}
-    - _Color2: {r: 0.5062534, g: 0.57608145, b: 0.643, a: 0}
-    - _Color3: {r: 0.47174436, g: 0.418137, b: 0.587, a: 0}
+    - _Color1: {r: 0.06808473, g: 0.16343983, b: 0.3207547, a: 0}
+    - _Color2: {r: 0.61263365, g: 0.40503737, b: 0.6981132, a: 0}
+    - _Color3: {r: 0.51428443, g: 0.54850423, b: 0.8584906, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SkyColor1: {r: 0.37, g: 0.52, b: 0.73, a: 0}
     - _SkyColor2: {r: 0.89, g: 0.96, b: 1, a: 0}
