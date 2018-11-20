@@ -5,14 +5,19 @@ using UnityEngine;
 public class PreventYMovement : MonoBehaviour {
 
 	// Use this for initialization
-	Transform cloudTransform;
+	Quaternion startRotation;
 	public float yPosLock = 41.77f;
+	public float xRotLock;
+	public float yRotLock;
+	public float zRotLock;
 	void Start () {
-		cloudTransform = GetComponent<Transform>();
+
+		startRotation = transform.rotation;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		cloudTransform.position = new Vector3(cloudTransform.position.x, yPosLock, cloudTransform.position.z);
+		transform.position = new Vector3(transform.position.x, yPosLock, transform.position.z);
+		transform.rotation = startRotation;
 	}
 }
