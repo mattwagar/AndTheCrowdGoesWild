@@ -16,6 +16,14 @@ namespace StoryGraph
             return nodeStyle;
         }
 
+        public static GUIStyle DisableNodeStyle()
+        {
+            GUIStyle nodeStyle = new GUIStyle();
+            nodeStyle.normal.background = EditorGUIUtility.Load("builtin skins/darkskin/images/node0.png") as Texture2D;
+            nodeStyle.border = new RectOffset(12, 12, 12, 12);
+            return nodeStyle;
+        }
+
         public static GUIStyle NodeHeaderStyle()
         {
             GUIStyle nodeHeaderStyle = new GUIStyle();
@@ -81,6 +89,15 @@ namespace StoryGraph
             whiteTextStyle.alignment = TextAnchor.UpperLeft;
             return whiteTextStyle;
         }
+        public static GUIStyle WhiteRightTextStyle()
+        {
+            GUIStyle WhiteRightTextStyle = new GUIStyle();
+            WhiteRightTextStyle.normal.textColor = Color.white;
+            WhiteRightTextStyle.fontStyle = FontStyle.Bold;
+            WhiteRightTextStyle.alignment = TextAnchor.UpperRight;
+            WhiteRightTextStyle.fontSize = 13;
+            return WhiteRightTextStyle;
+        }
         public static GUIStyle WhiteBoldTextStyle()
         {
             GUIStyle whiteBoldTextStyle = new GUIStyle();
@@ -99,14 +116,16 @@ namespace StoryGraph
         public static GUIStyle InPointStyle()
         {
             GUIStyle inPointStyle = new GUIStyle();
-            inPointStyle.normal.background = EditorGUIUtility.Load("builtin skins/lightskin/images/btn left.png") as Texture2D;
-            inPointStyle.active.background = EditorGUIUtility.Load("builtin skins/lightskin/images/btn left on.png") as Texture2D;
-            inPointStyle.border = new RectOffset(4, 4, 12, 12);
+            inPointStyle.normal.background = EditorGUIUtility.Load("builtin skins/lightskin/images/btn right.png") as Texture2D;
+            inPointStyle.active.background = EditorGUIUtility.Load("builtin skins/lightskin/images/btn right on.png") as Texture2D;
+            // inPointStyle.active.background = EditorGUIUtility.Load("builtin skins/lightskin/images/btn left on.png") as Texture2D;
+            inPointStyle.border = new RectOffset(2, 2, 15, 15);
             return inPointStyle;
         }
         public static GUIStyle OutPointStyle()
         {
             GUIStyle outPointStyle = new GUIStyle();
+            outPointStyle.alignment = TextAnchor.MiddleCenter;
             outPointStyle.normal.background = EditorGUIUtility.Load("builtin skins/lightskin/images/btn right.png") as Texture2D;
             outPointStyle.active.background = EditorGUIUtility.Load("builtin skins/lightskin/images/btn right on.png") as Texture2D;
             outPointStyle.border = new RectOffset(4, 4, 12, 12);

@@ -16,7 +16,7 @@ namespace StoryGraph
 {
 
     public enum StorySerializedPropertyType { PropertyField, UnityEvent, Array, NoLabelPropertyField, RadioButton, NoLabelReadOnly, IntegerField }
-    public enum StoryNodeState { IsAsleep, IsAwake, IsDone }
+    public enum StoryNodeState { IsAsleep, IsAwake, IsDone, IsDisabled }
     // [Serializable]
     // public class StoryNodeEvent : UnityEvent <StoryNode> {}
 
@@ -30,24 +30,33 @@ namespace StoryGraph
         public ConnectionPoint inPoint;
         public ConnectionPoint outPoint;
         public StoryNodeState storyNodeState = StoryNodeState.IsAsleep;
-
+        public int timesVisited = 0;
         public StoryGraph storyGraph;
+        public string LoopId;
+        // public string LoopId {
+        //     get{return loopId;}
+        //     set{loopId = value;}
+        // }
 
 #if UNITY_EDITOR
         public Rect originalRect;
         public Rect rect;
         public string title;
-        public float Spacing;
-        public float NegativeSpace = 0;
+        public float SerializedPropertyYOffset = 75;
+        public float SerializedSpacing;
+        public float ExtraPointSpacing = 0;
         public bool isDragged;
         public bool isSelected;
+        public bool enableNode = true;
 
         public GUIStyle style;
+        public GUIStyle disabledStyle;
         public GUIStyle defaultNodeStyle;
         public GUIStyle selectedNodeStyle;
         public GUIStyle closeButtonStyle;
         public GUIStyle nodeHeaderStyle;
         public GUIStyle whiteTextStyle;
+        public GUIStyle whiteRightTextStyle;
         public GUIStyle whiteTextHeaderStyle;
         public GUIStyle isAsleepStyle;
         public GUIStyle isAwakeStyle;
@@ -87,12 +96,14 @@ namespace StoryGraph
         public virtual void SetStyles()
         {
             style = StoryGraphStyles.NodeStyle();
+            disabledStyle = StoryGraphStyles.DisableNodeStyle();
             defaultNodeStyle = StoryGraphStyles.NodeStyle();
             selectedNodeStyle = StoryGraphStyles.SelectedNodeStyle();
             closeButtonStyle = StoryGraphStyles.CloseButtonStyle();
             nodeHeaderStyle = StoryGraphStyles.NodeHeaderStyle();
             whiteTextHeaderStyle = StoryGraphStyles.WhiteTextHeaderStyle();
             whiteTextStyle = StoryGraphStyles.WhiteTextStyle();
+            whiteRightTextStyle = StoryGraphStyles.WhiteRightTextStyle();
             isAsleepStyle = StoryGraphStyles.IsAsleepStyle();
             isAwakeStyle = StoryGraphStyles.IsAwakeStyle();
             isDoneStyle = StoryGraphStyles.IsDoneStyle();
@@ -116,47 +127,92 @@ namespace StoryGraph
                 serializedObject = new SerializedObject(this);
             }
 
+            DrawConnectionPoints();
+
+            GUI.BeginGroup(rect, style);
+
+            DrawNode(isVisible);
+
+            GUI.EndGroup();
+        }
+
+        protected void DrawConnectionPoints()
+        {
             inPoint.UpdateLocation(rect.x, rect.y, rect.width, rect.height);
             inPoint.Draw();
             outPoint.UpdateLocation(rect.x, rect.y, rect.width, rect.height);
             outPoint.Draw();
+        }
 
-            GUI.BeginGroup(rect, style);
-
+        protected void DrawNode(bool isVisible)
+        {
             GUI.BeginGroup(new Rect(0, 0, rect.width, 50), nodeHeaderStyle);
             GUI.Label(new Rect(0, 0, rect.width, 50), title, whiteTextHeaderStyle);
             if (GUI.Button(new Rect(rect.width - 25, 5, 15, 15), "", closeButtonStyle))
             {
-                storyGraph.RemoveNode(this);
+                DestroySelf();
             }
+
+            if (GUI.Toggle(new Rect(8, 5, 15, 15), enableNode, "") != enableNode)
+            {
+                enableNode = !enableNode;
+
+                if(enableNode == false)
+                {
+                    storyNodeState = StoryNodeState.IsDisabled;
+                }
+
+                if(enableNode == true)
+                {
+                    storyNodeState = StoryNodeState.IsAsleep;
+                }
+            }
+
             GUI.EndGroup();
 
 
             if (isVisible)
             {
-                if (storyNodeState == StoryNodeState.IsAsleep)
+                if (storyNodeState == StoryNodeState.IsDisabled)
+                {
+                    GUI.BeginGroup(new Rect(0, 42, rect.width, 40));
+                    GUI.Label(new Rect(15, 8, rect.width, 20), "Status:", whiteBoldTextStyle);
+                    GUI.Label(new Rect(0, 8, rect.width - 20, 20), "Is Disabled", isAsleepStyle);
+                    GUI.EndGroup();
+                } else if (storyNodeState == StoryNodeState.IsAsleep)
                 {
                     GUI.BeginGroup(new Rect(0, 42, rect.width, 40));
                     GUI.Label(new Rect(15, 8, rect.width, 20), "Status:", whiteBoldTextStyle);
                     GUI.Label(new Rect(0, 8, rect.width - 20, 20), "Asleep", isAsleepStyle);
                     GUI.EndGroup();
                 }
-                else if (storyNodeState == StoryNodeState.IsAwake)
+                else if (storyNodeState == StoryNodeState.IsDone && timesVisited == 1)
+                {
+                    GUI.BeginGroup(new Rect(0, 40, rect.width, 40));
+                    GUI.Label(new Rect(15, 8, rect.width, 20), "Status:", whiteBoldTextStyle);
+                    GUI.Label(new Rect(0, 8, rect.width - 20, 20), "Done", isDoneStyle);
+                    GUI.EndGroup();
+                } else if (storyNodeState == StoryNodeState.IsDone && timesVisited > 1)
+                {
+                    GUI.BeginGroup(new Rect(0, 40, rect.width, 40));
+                    GUI.Label(new Rect(15, 8, rect.width, 20), "Status:", whiteBoldTextStyle);
+                    GUI.Label(new Rect(0, 8, rect.width - 20, 20), "Done("+ timesVisited + ")", isDoneStyle);
+                    GUI.EndGroup();
+                }  else if (storyNodeState == StoryNodeState.IsAwake && timesVisited > 1)
+                {
+                    GUI.BeginGroup(new Rect(0, 40, rect.width, 40));
+                    GUI.Label(new Rect(15, 8, rect.width, 20), "Status:", whiteBoldTextStyle);
+                    GUI.Label(new Rect(0, 8, rect.width - 20, 20), "Awake("+ timesVisited + ")", isAwakeStyle);
+                    GUI.EndGroup();
+                } else if (storyNodeState == StoryNodeState.IsAwake)
                 {
                     GUI.BeginGroup(new Rect(0, 40, rect.width, 40));
                     GUI.Label(new Rect(15, 8, rect.width, 20), "Status:", whiteBoldTextStyle);
                     GUI.Label(new Rect(0, 8, rect.width - 20, 20), "Awake", isAwakeStyle);
                     GUI.EndGroup();
                 }
-                else if (storyNodeState == StoryNodeState.IsDone)
-                {
-                    GUI.BeginGroup(new Rect(0, 40, rect.width, 40));
-                    GUI.Label(new Rect(15, 8, rect.width, 20), "Status:", whiteBoldTextStyle);
-                    GUI.Label(new Rect(0, 8, rect.width - 20, 20), "Done", isDoneStyle);
-                    GUI.EndGroup();
-                }
 
-                SetSpacing();
+                SetSerializedSpacing();
                 DrawSerializedProperties();
             }
             else
@@ -164,41 +220,24 @@ namespace StoryGraph
                 if (SerializedProperties != null && SerializedProperties.Count > 0)
                 {
                     SerializedProperties = null;
-                    Spacing = 0;
+                    SerializedSpacing = 0;
                     SetRectSize();
                 }
             }
-
-            // if (isSelected)
-            // {
-            //     SetSpacing();
-            //     DrawSerializedProperties();
-            // } else {
-            //     if(SerializedProperties != null && SerializedProperties.Count > 0)
-            //     { 
-            //         SerializedProperties = null;
-            //         Spacing = 0;
-            //         SetRectSize();
-            //     }
-            // }
-
-            GUI.EndGroup();
-
-
-            // if (Spacing != GetSpacing())
-            // {
-            //     SetSpacing();
-            // }
-
         }
 
-        public void SetSpacing()
+        public virtual void DestroySelf()
         {
-            Spacing = GetSpacing();
+            storyGraph.RemoveNode(this);
+        }
+
+        public void SetSerializedSpacing()
+        {
+            SerializedSpacing = GetSerializedSpacing();
             SetRectSize();
         }
 
-        public float GetSpacing()
+        public float GetSerializedSpacing()
         {
             float spacing = 0;
             if (SerializedProperties != null && SerializedProperties.Count > 0)
@@ -213,28 +252,9 @@ namespace StoryGraph
             return spacing;
         }
 
-        public float GetNegativeSpace()
-        {
-            float spacing = 0;
-            if (SerializedProperties != null && SerializedProperties.Count > 0)
-            {
-                for (int i = 0; i < SerializedProperties.Count; i++)
-                {
-                    spacing += EditorGUI.GetPropertyHeight(SerializedProperties[i], true);
-                }
-                // spacing += EditorGUIUtility.singleLineHeight * (SerializedProperties.Count-1);
-                spacing += (SerializedProperties.Count) * 2;
-            }
-            else
-            {
-                return NegativeSpace;
-            }
-            return -spacing;
-        }
-
         public void SetRectSize()
         {
-            rect = new Rect(rect.x, rect.y, originalRect.width, originalRect.height + Spacing);
+            rect = new Rect(rect.x, rect.y, originalRect.width, originalRect.height + SerializedSpacing + ExtraPointSpacing);
         }
 
         public void InitializeSerializedProperties()
@@ -249,7 +269,7 @@ namespace StoryGraph
                 serializedObject = new SerializedObject(this);
 
                 SetSerializedProperties();
-                SetSpacing();
+                SetSerializedSpacing();
             }
         }
 
@@ -258,9 +278,8 @@ namespace StoryGraph
             InitializeSerializedProperties();
             if (SerializedProperties.Count > 0)
             {
-                GUI.BeginGroup(new Rect(10, 75, rect.width, rect.height));
-                GUILayout.Space(NegativeSpace);
-
+                GUI.BeginGroup(new Rect(10, SerializedPropertyYOffset, rect.width, rect.height));
+                
                 serializedObject.Update();
                 float currentSpacing = 0;
                 for (int i = 0; i < SerializedProperties.Count; i++)
@@ -268,15 +287,15 @@ namespace StoryGraph
                     if (StorySerializedPropertyTypes[i] == StorySerializedPropertyType.NoLabelPropertyField)
                     {
                         GUI.BeginGroup(new Rect(0, (EditorGUIUtility.singleLineHeight * i), rect.width, rect.height));
-                        EditorGUILayout.PropertyField(SerializedProperties[i], GUIContent.none, true, GUILayout.MaxWidth(rect.width - 30));
-                    GUI.EndGroup();
+                        EditorGUI.PropertyField(new Rect(0,currentSpacing, rect.width-20, rect.height), SerializedProperties[i], GUIContent.none, true);
+                        GUI.EndGroup();
                         currentSpacing += EditorGUI.GetPropertyHeight(SerializedProperties[i], true);
                     }
                     else if (StorySerializedPropertyTypes[i] == StorySerializedPropertyType.PropertyField)
                     {
                         GUI.Label(new Rect(5, (currentSpacing) + (i * 2) + EditorGUIUtility.singleLineHeight * i, rect.width, 50), Labels[i], whiteTextStyle);
                         GUI.BeginGroup(new Rect(rect.width / 2, (EditorGUIUtility.singleLineHeight * i), rect.width, rect.height), whiteTextStyle);
-                        EditorGUILayout.PropertyField(SerializedProperties[i], GUIContent.none, true, GUILayout.MaxWidth(rect.width * 2 / 4 - 30));
+                        EditorGUI.PropertyField(new Rect(0,currentSpacing, (rect.width/2)-20, rect.height), SerializedProperties[i], GUIContent.none, true);
                         GUI.EndGroup();
                         currentSpacing += EditorGUI.GetPropertyHeight(SerializedProperties[i], true);
                     }
@@ -284,7 +303,7 @@ namespace StoryGraph
                     else if (StorySerializedPropertyTypes[i] == StorySerializedPropertyType.UnityEvent || StorySerializedPropertyTypes[i] == StorySerializedPropertyType.Array)
                     {
                         GUI.BeginGroup(new Rect(0, (EditorGUIUtility.singleLineHeight * i), rect.width, rect.height));
-                        EditorGUILayout.PropertyField(SerializedProperties[i], new GUIContent(Labels[i]), true, GUILayout.MaxWidth(rect.width - 30));
+                        EditorGUI.PropertyField(new Rect(0,currentSpacing, rect.width-20, rect.height), SerializedProperties[i], GUIContent.none, true);
                         GUI.EndGroup();
                         currentSpacing += EditorGUI.GetPropertyHeight(SerializedProperties[i], true);
                     }
@@ -292,7 +311,7 @@ namespace StoryGraph
                     {
                         GUI.Label(new Rect(5, (currentSpacing) + (i * 2) + EditorGUIUtility.singleLineHeight * i, rect.width, 50), Labels[i], whiteTextStyle);
                         GUI.BeginGroup(new Rect(rect.width - 45, (EditorGUIUtility.singleLineHeight * i), rect.width, rect.height), whiteTextStyle);
-                        EditorGUILayout.PropertyField(SerializedProperties[i], GUIContent.none, true, GUILayout.MaxWidth(rect.width * 1 / 6));
+                        EditorGUI.PropertyField(new Rect(0,currentSpacing, rect.width-20, rect.height), SerializedProperties[i], GUIContent.none, true);
                         GUI.EndGroup();
                         currentSpacing += EditorGUI.GetPropertyHeight(SerializedProperties[i], true);
                     }
@@ -300,21 +319,12 @@ namespace StoryGraph
                     {
                         GUI.BeginGroup(new Rect(0, (EditorGUIUtility.singleLineHeight * i), rect.width, rect.height));
                         GUI.enabled = false;
-                        EditorGUILayout.PropertyField(SerializedProperties[i], GUIContent.none, true, GUILayout.MaxWidth(rect.width - 30));
+                        EditorGUI.PropertyField(new Rect(0,currentSpacing, rect.width-20, rect.height), SerializedProperties[i], GUIContent.none, true);
                         GUI.enabled = true;
                         GUI.EndGroup();
                         currentSpacing += EditorGUI.GetPropertyHeight(SerializedProperties[i], true);
                     }
-                   /* else if (StorySerializedPropertyTypes[i] == StorySerializedPropertyType.IntegerField)
-                    {
-                        GUI.Label(new Rect(5, (currentSpacing) + (i * 2) + EditorGUIUtility.singleLineHeight * i, rect.width, 50), Labels[i], whiteTextStyle);
-                        GUI.BeginGroup(new Rect(rect.width - 45, (EditorGUIUtility.singleLineHeight * i), rect.width, rect.height), whiteTextStyle);
-                        EditorGUILayout.PropertyField(SerializedProperties[i], GUIContent.none, true, GUILayout.MaxWidth(rect.width));
-                        currentSpacing += EditorGUI.GetPropertyHeight(SerializedProperties[i], true);
-
-                    }*/
                 }
-                // Debug.Log(Spacing);
                 serializedObject.ApplyModifiedProperties();
                 GUI.EndGroup();
             }
@@ -349,13 +359,6 @@ namespace StoryGraph
             StorySerializedPropertyTypes.Add(StorySerializedPropertyType);
         }
 
-        // public virtual void AddSerializedProperty(string propertyName, bool label)
-        // {
-        //     SerializedProperties.Add(serializedObject.FindProperty(propertyName));
-        //     if (label) Labels.Add(propertyName);
-        //     else Labels.Add("");
-        // }
-
         public bool ProcessEvents(Event e)
         {
             switch (e.type)
@@ -376,6 +379,8 @@ namespace StoryGraph
                             isDragged = true;
                             // GUI.changed = true;
                             isSelected = true;
+                            storyGraph.SelectedNode = this;
+                            SelectNode(true);
                             style = selectedNodeStyle;
                             return true;
                         }
@@ -383,6 +388,7 @@ namespace StoryGraph
                         {
                             // GUI.changed = true;
                             isSelected = false;
+                            SelectNode(false);
                             style = defaultNodeStyle;
                             return true;
                         }
@@ -393,6 +399,8 @@ namespace StoryGraph
                         // GUI.changed = true;
                         isDragged = true;
                         isSelected = true;
+                        storyGraph.SelectedNode = this;
+                        SelectNode(true);
                         style = selectedNodeStyle;
                         // ProcessContextMenu();
                         // e.Use();
@@ -436,7 +444,7 @@ namespace StoryGraph
         }
         private void OnClickRemoveNode()
         {
-            storyGraph.RemoveNode(this);
+            DestroySelf();
         }
 #endif
         public int CompareTo(StoryNode storyNode)
@@ -444,19 +452,38 @@ namespace StoryGraph
             return 0;
         }
 
-
-
-        public void WakeUpNode()
+        public virtual void SelectNode(bool isSelected)
         {
-            Debug.Log(Id + " is Awake");
-            storyNodeState = StoryNodeState.IsAwake;
+            storyGraph.SetConnectionsSelected(this, isSelected);
+        }
+
+        public virtual void WakeUpNode(string _loopId)
+        {
+
+            //initialize first loopId
+            if(_loopId == "start" || LoopId == _loopId){
+                LoopId = "Loop_"+ Time.time +System.Guid.NewGuid().ToString();
+            } else {
+                LoopId = _loopId;
+            }
+            
+
+            if(storyNodeState != StoryNodeState.IsDisabled){
+                storyNodeState = StoryNodeState.IsAwake;
+                Execute();
+            }
+
+
+            
+
         }
 
         public void GoToNextNode()
         {
-            Debug.Log(Id + " is Done");
+            // Debug.Log(Id + " is Done");
             storyNodeState = StoryNodeState.IsDone;
-            outPoint.GoToNextNode();
+            timesVisited++;
+            outPoint.GoToNextNode(LoopId);
         }
 
         public virtual void Execute()
