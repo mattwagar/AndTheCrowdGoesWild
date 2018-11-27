@@ -34,13 +34,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1143283293438970}
-  m_LocalRotation: {x: -0.16586174, y: 0.0848306, z: 0.007268603, w: 0.9824667}
-  m_LocalPosition: {x: -0.014, y: 0.117, z: -0.084}
+  m_LocalRotation: {x: -0.7926331, y: 0.00000005960463, z: 0.000000005238688, w: 0.6096991}
+  m_LocalPosition: {x: -0.008, y: -0.023, z: -0.104}
   m_LocalScale: {x: 0.061280202, y: 0.06128021, z: 0.061280202}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -19.095001, y: 10.011001, z: -0.84000003}
+  m_LocalEulerAnglesHint: {x: -104.864, y: 0, z: -0.000015258789}
 --- !u!198 &198919279295273556
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -48,7 +48,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1143283293438970}
   serializedVersion: 5
-  lengthInSec: 60
+  lengthInSec: 1
   simulationSpeed: 1
   stopAction: 2
   looping: 1
@@ -814,7 +814,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 10
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1970,7 +1970,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: -0.28724623
+          value: 1
           inSlope: -12.464732
           outSlope: -12.464732
           tangentMode: 0

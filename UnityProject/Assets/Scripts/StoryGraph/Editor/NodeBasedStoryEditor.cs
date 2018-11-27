@@ -25,6 +25,10 @@ namespace StoryGraph
         private Color smallLineColor;
         private Color thickLineColor;
 
+        // private Rect _zoomArea;
+        private Rect clippedArea;
+        
+
         #endregion
 
 
@@ -80,15 +84,12 @@ namespace StoryGraph
         #region DRAW LOOP
         private void OnGUI()
         {
-            // InitStyles();        
+
+            
+
             DrawBackground();
 
-            if (IsStoryGraphSelected() == true && lockedInspector == true)
-            {
-                SelectedStoryGraph = Selection.gameObjects[0].GetComponent<StoryGraph>();
-                drawGraph();
-            }
-            else if (IsStoryGraphSelected() == true && lockedInspector == false)
+            if (IsStoryGraphSelected() == true)
             {
                 SelectedStoryGraph = Selection.gameObjects[0].GetComponent<StoryGraph>();
                 drawGraph();
@@ -102,14 +103,21 @@ namespace StoryGraph
                 GUI.Label(new Rect(0, 0, position.width, position.height), "Select a GameObject in the Hierarchy with a StoryGraph Component attached to it.", StoryGraphStyles.WhiteTextHeaderStyle());
                 SelectedStoryGraph = null;
             }
+
             Repaint();
         }
 
         private void drawGraph()
         {
+            clippedArea = Begin(SelectedStoryGraph.Zoom, new Rect(0.0f, 0.0f, position.width, position.height));
+
             DrawGrid(20, 0.2f, smallLineColor);
             DrawGrid(100, 0.4f, thickLineColor);
 
+            // _zoomArea = new Rect(0.0f, 0.0f, position.width, position.height);
+
+
+            // GUIUtility.ScaleAroundPivot(SelectedStoryGraph.Scale, SelectedStoryGraph.PivotPoint);
             DrawNodes();
             DrawConnections();
 
@@ -117,6 +125,8 @@ namespace StoryGraph
 
             ProcessNodeEvents(Event.current);
             ProcessEvents(Event.current);
+            
+            End();
         }
         #endregion
 
@@ -142,8 +152,8 @@ namespace StoryGraph
 
         private void DrawGrid(float gridSpacing, float gridOpacity, Color gridColor)
         {
-            int widthDivs = Mathf.CeilToInt(position.width / gridSpacing);
-            int heightDivs = Mathf.CeilToInt(position.height / gridSpacing);
+            int widthDivs = Mathf.CeilToInt(clippedArea.width / gridSpacing);
+            int heightDivs = Mathf.CeilToInt(clippedArea.height / gridSpacing);
 
             Handles.BeginGUI();
             Handles.color = new Color(gridColor.r, gridColor.g, gridColor.b, gridOpacity);
@@ -153,12 +163,12 @@ namespace StoryGraph
 
             for (int i = 0; i < widthDivs; i++)
             {
-                Handles.DrawLine(new Vector3(gridSpacing * i, 0, 0) + newOffset, new Vector3(gridSpacing * i, position.height + 100, 0f) + newOffset);
+                Handles.DrawLine(new Vector3(gridSpacing * i, 0, 0) + newOffset, new Vector3(gridSpacing * i, clippedArea.height + 100, 0f) + newOffset);
             }
 
             for (int j = 0; j < heightDivs; j++)
             {
-                Handles.DrawLine(new Vector3(0, gridSpacing * j, 0) + newOffset, new Vector3(position.width + 100, gridSpacing * j, 0f) + newOffset);
+                Handles.DrawLine(new Vector3(0, gridSpacing * j, 0) + newOffset, new Vector3(clippedArea.width + 100, gridSpacing * j, 0f) + newOffset);
             }
 
             Handles.color = Color.white;
@@ -167,7 +177,6 @@ namespace StoryGraph
 
         private void DrawNodes()
         {
-            int index = 0;
             if (SelectedStoryGraph.Nodes != null)
             {
                 for (int i = 0; i < SelectedStoryGraph.Nodes.Count; i++)
@@ -175,16 +184,7 @@ namespace StoryGraph
 
                     if (ClipNode(SelectedStoryGraph.Nodes[i].rect))
                     {
-                        if (index == 0)
-                        {
-                            SelectedStoryGraph.Nodes[i].NegativeSpace = 0;
-                        }
-                        else
-                        {
-                            SelectedStoryGraph.Nodes[i].NegativeSpace = SelectedStoryGraph.Nodes[i - 1].GetNegativeSpace();
-                        }
                         SelectedStoryGraph.Nodes[i].Draw(true);
-                        index++;
                     }
                     else
                     {
@@ -200,7 +200,7 @@ namespace StoryGraph
             float x2 = rect.x + rect.width;
             float y1 = rect.y;
             float y2 = rect.y + rect.height;
-            return ((x1 > position.x - 100 && x1 < position.width) || (x2 > position.x - 100 && x2 < position.width)) && ((y1 > position.y - 500 && y1 < position.height) || (y2 > position.y - 500 && y2 < position.height));
+            return ((x1 > 0 && x1 < clippedArea.width) || (x2 > 0 && x2 < clippedArea.width)) && ((y1 > 0 && y1 < clippedArea.height) || (y2 > 0 && y2 < clippedArea.height));
         }
 
         private void DrawConnections()
@@ -209,8 +209,8 @@ namespace StoryGraph
             {
                 for (int i = 0; i < SelectedStoryGraph.Connections.Count; i++)
                 {
-                    if (ClipConnection(SelectedStoryGraph.Connections[i].inPoint, SelectedStoryGraph.Connections[i].outPoint))
-                        SelectedStoryGraph.Connections[i].Draw();
+                    
+                    SelectedStoryGraph.Connections[i].Draw();
                 }
             }
         }
@@ -221,7 +221,7 @@ namespace StoryGraph
             float x2 = (outPoint.rect.center - Vector2.left * 50f).x;
             float y1 = inPoint.rect.center.y;
             float y2 = (outPoint.rect.center - Vector2.left * 50f).y;
-            return (x1 > position.x && x1 < position.width) || (x2 > position.x && x2 < position.width) || (y1 > position.y && y1 < position.height) || (y2 > position.y && y2 < position.height);
+            return (x1 > 0 && x1 < position.width) || (x2 > 0 && x2 < position.width) || (y1 > 0 && y1 < position.height) || (y2 > 0 && y2 < position.height);
         }
 
         private void DrawConnectionLine(Event e)
@@ -298,6 +298,11 @@ namespace StoryGraph
                         OnDrag(e.delta);
                     }
                     break;
+                case EventType.ScrollWheel:
+                    float offset = (e.delta.y*0.01f);
+                    if(SelectedStoryGraph.Zoom - offset > 0.5f && SelectedStoryGraph.Zoom - offset < 1.5f )
+                    SelectedStoryGraph.Zoom -= (e.delta.y*0.01f);
+                    break;
             }
         }
 
@@ -371,6 +376,42 @@ namespace StoryGraph
             {
                 SelectedStoryGraph.Nodes = new List<StoryNode>();
             }
+        }
+
+        private const float kEditorWindowTabHeight = 21.0f;
+        private static Matrix4x4 _prevGuiMatrix;
+    
+        public static Rect Begin(float zoomScale, Rect screenCoordsArea)
+        {
+            GUI.EndGroup();        // End the group Unity begins automatically for an EditorWindow to clip out the window tab. This allows us to draw outside of the size of the EditorWindow.
+    
+            Rect clippedArea = RectExtensions.ScaleSizeBy(screenCoordsArea, 1.0f / zoomScale, RectExtensions.TopLeft(screenCoordsArea));
+            
+            clippedArea.y += kEditorWindowTabHeight;
+            GUI.BeginGroup(clippedArea);
+    
+            _prevGuiMatrix = GUI.matrix;
+            Matrix4x4 translation = Matrix4x4.TRS(RectExtensions.TopLeft(clippedArea), Quaternion.identity, Vector3.one);
+            Matrix4x4 scale = Matrix4x4.Scale(new Vector3(zoomScale, zoomScale, 1.0f));
+
+
+            GUI.matrix = translation * scale * translation.inverse * GUI.matrix;
+
+            // GUILayout.BeginHorizontal ();
+            // GUILayout.Space (clippedArea.center.x);
+            // GUILayout.BeginVertical ();
+            // GUILayout.Space (clippedArea.center.y);
+
+
+
+            return clippedArea;
+        }
+    
+        public static void End()
+        {
+            GUI.matrix = _prevGuiMatrix;
+            GUI.EndGroup();
+            GUI.BeginGroup(new Rect(0.0f, kEditorWindowTabHeight, Screen.width, Screen.height));
         }
 
 

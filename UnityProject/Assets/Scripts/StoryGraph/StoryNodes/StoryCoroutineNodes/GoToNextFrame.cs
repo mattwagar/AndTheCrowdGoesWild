@@ -24,7 +24,6 @@ public class GoToNextFrame : StoryNode {
 	public IEnumerator WaitForSeconds()
     {
         yield return null;
-        Debug.Log("Is this looping?");
         GoToNextNode();
     }
 }

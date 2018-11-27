@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using StoryGraph;
 
-public class IsForcePushedNode : StoryNode
+public class IsForcePushedNode : StoryCondition
 {
     public ForcePush ForcePush;
 
@@ -24,9 +24,14 @@ public class IsForcePushedNode : StoryNode
 
     public override void Execute()
     {
-        if(!ForcePush.pushed)
+
+        if(ForcePush.pushed)
         {
-            GoToNextNode();
+            GoToTrueNode();
+        } 
+        else
+        {
+            GoToFalseNode();
         }
     }
 

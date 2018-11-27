@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,14 +14,18 @@ namespace StoryGraph
         public string NodeId;
 
         public ConnectionPointType type;
-
         public StoryGraph storyGraph;
 
-        #if UNITY_EDITOR        
+
+        #if UNITY_EDITOR      
+        float nodeCount = 1;  
+        public float nodeIndex = 1;  
+        string label = "";
         public Rect rect;
         public GUIStyle style;
+        public bool appendBottom = false;
 
-        public void Initialize(string NodeId, ConnectionPointType type, GUIStyle style, StoryGraph _storyGraph)
+        public void Initialize(string NodeId, ConnectionPointType type, GUIStyle style, StoryGraph _storyGraph, bool _appendBottom = false, float _nodeIndex = 1f, float _nodeCount = 1f)
         {
             this.Id = "ConnectionPoint_" + System.Guid.NewGuid().ToString();;
             this.NodeId = NodeId;
@@ -28,11 +33,22 @@ namespace StoryGraph
             this.style = style;
             rect = new Rect(0, 0, 10f, 20f);
             storyGraph = _storyGraph;
+            appendBottom = _appendBottom;
+            nodeIndex = _nodeIndex;
+            // nodeCount = _nodeCount;
         }
+
+        public void setAppendBottom(bool _appendBottom){appendBottom = _appendBottom;}
+        public void setNodeIndex(float _nodeIndex){nodeIndex = _nodeIndex;}
 
         public void UpdateLocation(float nodeRectX, float nodeRectY, float nodeRectWidth, float nodeRectHeight)
         {
-            rect.y = nodeRectY + (nodeRectHeight * 0.5f) - rect.height * 0.5f;
+            if(appendBottom){
+                rect.y = nodeRectY + nodeRectHeight - rect.height - 12;
+            }else{
+                // rect.y = nodeRectY + (nodeRectHeight * (nodeIndex/(nodeCount+1)) - rect.height * 0.5f);
+                rect.y = nodeRectY + 22 + (nodeIndex*28);
+            }
 
             switch (type)
             {
@@ -61,13 +77,15 @@ namespace StoryGraph
             }
         }
 
+        
+
         #endif
 
-        public void GoToNextNode()
+        public void GoToNextNode(string loopId)
         {
             if(type == ConnectionPointType.Out)
             {
-                storyGraph.TraverseConnection(Id);
+                storyGraph.TraverseConnection(Id, loopId);
             }
         }
     }
