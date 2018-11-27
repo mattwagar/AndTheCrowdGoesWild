@@ -11,7 +11,6 @@ public class PopMarbleEvent : MonoBehaviour
 	public ParticleSystem particleSystem;
     private float _distance;
 	private Vector3 _cacheLocalScale;
-	// public Renderer _renderer;
 	public bool Popped = false;
 	private enum PoseState {Idle, OkHand};
 	private PoseState poseState = PoseState.Idle;
@@ -21,7 +20,7 @@ public class PopMarbleEvent : MonoBehaviour
 
     void Start()
     {
-		_cacheLocalScale = transform.localScale;
+		_cacheLocalScale = Vector3.one;
         _distance = Vector3.Distance(ThumbPoint.position, IndexPoint.position);
     }
 
@@ -42,10 +41,10 @@ public class PopMarbleEvent : MonoBehaviour
 		}
 		else if (distance < _distance &&  distance >= _distance/4)
         {
-            // transform.localScale = new Vector3(Mathf.Lerp(transform.localScale.x, distance /_distance, 0.01f),  Mathf.Lerp(transform.localScale.y, distance /_distance, 0.01f), distance /_distance);
+            transform.localScale = new Vector3(Mathf.Lerp(transform.localScale.x, distance /_distance, 0.1f),  Mathf.Lerp(transform.localScale.y, distance /_distance, 0.1f), Mathf.Lerp(transform.localScale.z, distance /_distance, 0.1f));
 			Popped = false;
         } else if (distance >= _distance){
-            // transform.localScale = _cacheLocalScale;
+            transform.localScale = _cacheLocalScale;
 			Popped = false;
 		}
 	}
