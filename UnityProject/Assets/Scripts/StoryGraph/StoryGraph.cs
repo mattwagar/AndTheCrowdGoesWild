@@ -86,8 +86,6 @@ namespace StoryGraph
 #if UNITY_EDITOR
 
         // public Vector2 Scale = new Vector2(1,1);
-        public Rect cachedRect;
-        public Vector2 PivotPoint = new Vector2(Screen.width / 2, Screen.height / 2);
         public float Zoom = 1.0f;
 
         public void SetConnectionsSelected(StoryNode storyNode, bool _isSelected)

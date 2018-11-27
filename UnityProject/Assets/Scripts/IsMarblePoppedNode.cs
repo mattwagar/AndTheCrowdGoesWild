@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using StoryGraph;
 
-public class IsMarblePoppedNode : StoryNode
+public class IsMarblePoppedNode : StoryCondition
 {
-    public SphereAppear Marble;
+    public PopMarbleEvent Marble;
 
 
     #if UNITY_EDITOR    
@@ -24,9 +24,13 @@ public class IsMarblePoppedNode : StoryNode
 
     public override void Execute()
     {
-        if(!Marble.Popped)
+        if(Marble.Popped)
         {
-            GoToNextNode();
+            GoToTrueNode();
+        } 
+        else
+        {
+            GoToFalseNode();
         }
     }
 

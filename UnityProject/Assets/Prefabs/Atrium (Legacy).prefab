@@ -2676,7 +2676,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4220309837616712}
   m_Layer: 0
-  m_Name: Atrium
+  m_Name: Atrium (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
