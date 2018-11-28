@@ -20,18 +20,18 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - _TessMultiplier: 3.23
-    - _TessellationMultiplier: 3.3
-    - _TransAmbient: 0.69
+    - _TessellationMultiplier: 16.61
+    - _TransAmbient: 0.873
     - _TransDirect: 0.9
     - _TransNormalDistortion: 0.25
     - _TransScattering: 1
     - _TransShadow: 1
     - _Translucency: 7.2
     - __dirty: 0
-    - _noisescale: 0.3
+    - _noisescale: 0.2
     m_Colors:
     - _Albedo: {r: 0.22294413, g: 0.22294413, b: 0.2830189, a: 0}
     - _CloudColor: {r: 0.22294413, g: 0.22294413, b: 0.2830189, a: 0}
-    - _EmissionandOpacity: {r: 0.6886792, g: 0.4515397, b: 0.46185005, a: 0}
+    - _EmissionandOpacity: {r: 0.8679245, g: 0.7000712, b: 0.7083262, a: 0}
     - _Tiling: {r: 10.48, g: 3, b: 0, a: 0}
     - _TranslucentColor: {r: 0.3584906, g: 0.21619679, b: 0.06594875, a: 0}
