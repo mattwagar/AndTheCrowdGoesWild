@@ -39,6 +39,20 @@ public class FlameSystemManager : MonoBehaviour {
 		}
 	}
 
+	public void ActivateSparks(bool sparkToggle)
+	{
+		if(sparkToggle)
+		{
+			sparkSystem.Play();
+			sparkSystemToggle = true;
+		}
+		else
+		{
+			sparkSystem.Stop();
+			sparkSystemToggle = false;
+		}
+	}
+
 	public void ActivateFirework()
 	{
 		fireworkSystem.Emit(1);
