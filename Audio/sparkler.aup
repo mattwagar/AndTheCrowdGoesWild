@@ -1,0 +1,31 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="sparkler_data" version="1.3.0" audacityversion="2.3.0" sel0="15.8333077752" sel1="23.7176487898" vpos="0" h="0.0000000000" zoom="15.4737091882" rate="48000.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags/>
+	<wavetrack name="102264__rytmenpinnen__onesparkler" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="48000" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="15.83330778" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="378448">
+				<waveblock start="0">
+					<simpleblockfile filename="e0808453.au" len="202440" min="-0.243909" max="0.506271" rms="0.019972"/>
+				</waveblock>
+				<waveblock start="202440">
+					<simpleblockfile filename="e0808efa.au" len="176008" min="-0.196881" max="0.708256" rms="0.020705"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="102264__rytmenpinnen__onesparkler" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="48000" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="15.83330778" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="378448">
+				<waveblock start="0">
+					<simpleblockfile filename="e08086b7.au" len="202440" min="-0.194888" max="0.49115" rms="0.019571"/>
+				</waveblock>
+				<waveblock start="202440">
+					<simpleblockfile filename="e0808690.au" len="176008" min="-0.245259" max="0.469507" rms="0.019714"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>
