@@ -55,6 +55,6 @@ public class FlameSystemManager : MonoBehaviour {
 
 	public void ActivateFirework()
 	{
-		fireworkSystem.Emit(1);
+		fireworkSystem.Play();
 	}
 }

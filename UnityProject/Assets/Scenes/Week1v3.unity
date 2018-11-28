@@ -90689,12 +90689,12 @@ Prefab:
     - target: {fileID: 198670772049463704, guid: 8273b3dce5ae6e94ca00b8014611b87c,
         type: 2}
       propertyPath: TrailModule.widthOverTrail.scalar
-      value: 0.48
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 198670772049463704, guid: 8273b3dce5ae6e94ca00b8014611b87c,
         type: 2}
       propertyPath: TrailModule.lifetime.scalar
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 198670772049463704, guid: 8273b3dce5ae6e94ca00b8014611b87c,
         type: 2}
@@ -90714,7 +90714,7 @@ Prefab:
     - target: {fileID: 198670772049463704, guid: 8273b3dce5ae6e94ca00b8014611b87c,
         type: 2}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 0.29
+      value: 0.14
       objectReference: {fileID: 0}
     - target: {fileID: 198670772049463704, guid: 8273b3dce5ae6e94ca00b8014611b87c,
         type: 2}
