@@ -23,8 +23,17 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _ASEOutlineWidth: 0
     - _Cutoff: 0.5
-    - _Float1: 0.18
+    - _Float0: 0.967
+    - _Float1: 0.08411765
+    - _Float2: 1.3081805
+    - _FrameCountPercent: 0.967
+    - _Stepping: 1.3081805
+    - _TimeScale: 0.81895083
     - __dirty: 0
     m_Colors:
-    - _Color0: {r: 0.7830863, g: 0.514151, b: 1, a: 0}
+    - _ASEOutlineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _Color0: {r: 0.5137255, g: 0.7714087, b: 1, a: 0}
+    - _Color1: {r: 1, g: 1, b: 1, a: 0}
+    - _Color2: {r: 0.5137255, g: 0.7714087, b: 1, a: 0}
