@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using StoryGraph;
 
-public class OnRaycastHover : StoryListener
+public class OnRaycastHover : MonoBehaviour
 {
+
+    public bool IsHovered = false;
     // void Update()
     // {
     //     RaycastHit hit;
@@ -20,11 +22,16 @@ public class OnRaycastHover : StoryListener
     //     }
     // }
 
-	/// <summary>
-	/// Called every frame while the mouse is over the GUIElement or Collider.
-	/// </summary>
-	void OnMouseOver()
-	{
-		Debug.Log("Hovering");
-	}
+    void OnMouseEnter()
+    {
+        IsHovered = true;
+    }
+	// void OnMouseOver()
+	// {
+	// 	StoryListenerAction.Invoke();
+	// }
+    void OnMouseExit()
+    {
+        IsHovered = false;
+    }
 }
