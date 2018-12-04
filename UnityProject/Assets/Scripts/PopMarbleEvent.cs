@@ -9,11 +9,11 @@ public class PopMarbleEvent : MonoBehaviour
     public Transform ThumbPoint;
     public Transform IndexPoint;
 	public ParticleSystem particleSystem;
-    private float _distance;
-	private Vector3 _cacheLocalScale;
+    protected float _distance;
+	protected Vector3 _cacheLocalScale;
 	public bool Popped = false;
-	private enum PoseState {Idle, OkHand};
-	private PoseState poseState = PoseState.Idle;
+	protected enum PoseState {Idle, OkHand};
+	protected PoseState poseState = PoseState.Idle;
 
 
 	public StoryListener popListener;
@@ -28,7 +28,7 @@ public class PopMarbleEvent : MonoBehaviour
 		Popped = false;
 	}
 
-	public void CenterMarble(){
+	public virtual void CenterMarble(){
 		transform.position = Vector3.Lerp(ThumbPoint.position, IndexPoint.position, 0.5f);
         Vector3 _direction = (ThumbPoint.position - IndexPoint.position).normalized;
         transform.rotation = Quaternion.LookRotation(_direction);

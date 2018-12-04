@@ -45,7 +45,7 @@ public class FlameHandEvent : MonoBehaviour
 			}
 			Pinched = false;
 
-			FlameHands.transform.position = Vector3.Lerp(PalmPoint.position, MidPoint, distance / _distance);
+			FlameHands.transform.position = Vector3.Lerp(MidPoint, PalmPoint.position, distance / _distance);
         } else if (distance >= _distance){
 			if(Pinched){
 				Flicked = true;

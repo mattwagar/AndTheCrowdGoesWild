@@ -8,6 +8,11 @@ public class FlameSystemManager : MonoBehaviour {
 	public ParticleSystem sparkSystem;
 	public ParticleSystem fireworkSystem;
 
+	public AudioSource audioSource;
+	public AudioClip fireAudio;
+	public AudioClip sparklerAudio;
+	public AudioClip fireworkAudio;
+
 	private bool handFlameToggle;
 	private bool sparkSystemToggle;
 
@@ -16,26 +21,16 @@ public class FlameSystemManager : MonoBehaviour {
 		if(handFlameToggle)
 		{
 			HandFlameParent.SetActive(false);
+			audioSource.loop = true;
+			audioSource.clip = fireAudio;
+			audioSource.Play();
 			handFlameToggle = false;
 		}
 		else
 		{
 			HandFlameParent.SetActive(true);
+			audioSource.Stop();
 			handFlameToggle = true;
-		}
-	}
-
-	public void ToggleSparks()
-	{
-		if(sparkSystemToggle)
-		{
-			sparkSystem.Stop();
-			sparkSystemToggle = false;
-		}
-		else
-		{
-			sparkSystem.Play();
-			sparkSystemToggle = true;
 		}
 	}
 
@@ -44,17 +39,25 @@ public class FlameSystemManager : MonoBehaviour {
 		if(sparkToggle)
 		{
 			sparkSystem.Play();
+			audioSource.loop = true;
+			audioSource.clip = sparklerAudio;
+			audioSource.Play();
 			sparkSystemToggle = true;
 		}
 		else
 		{
 			sparkSystem.Stop();
+			audioSource.Stop();
 			sparkSystemToggle = false;
 		}
 	}
 
 	public void ActivateFirework()
 	{
-		fireworkSystem.Emit(1);
+		fireworkSystem.Play();
+		audioSource.loop = false;
+		audioSource.clip = fireworkAudio;
+		audioSource.Play();
+		
 	}
 }
