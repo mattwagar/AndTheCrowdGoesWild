@@ -30,8 +30,8 @@ Material:
     - __dirty: 0
     - _noisescale: 0.35
     m_Colors:
-    - _Albedo: {r: 0.20454659, g: 0.16091135, b: 0.3018868, a: 0}
+    - _Albedo: {r: 0.2045466, g: 0.1609114, b: 0.3018868, a: 0}
     - _CloudColor: {r: 0.22294413, g: 0.22294413, b: 0.2830189, a: 0}
-    - _EmissionandOpacity: {r: 0.012625358, g: 0.0124822, b: 0.051886797, a: 0}
+    - _EmissionandOpacity: {r: 0.01262536, g: 0.0124822, b: 0.0518868, a: 0}
     - _Tiling: {r: 10.48, g: 3, b: 0, a: 0}
-    - _TranslucentColor: {r: 0.20225169, g: 0.4245283, b: 0.35898033, a: 1}
+    - _TranslucentColor: {r: 0.2022517, g: 0.4245283, b: 0.3589803, a: 1}
