@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GhostAnimManager : MonoBehaviour {
 
+	public AudioSource ghostyApplause;
+
 	private GameObject[] ghosties;
 
 	public bool excited = false;
@@ -20,6 +22,7 @@ public class GhostAnimManager : MonoBehaviour {
 
 	public void GetExcited() 
 	{
+		ghostyApplause.Play();
 		foreach(GameObject g in ghosties)
 		{
 			float rand = Random.Range(0f,1f);
