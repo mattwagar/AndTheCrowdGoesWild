@@ -7,6 +7,7 @@ namespace StoryGraph
 {
     public class StoryGraph : MonoBehaviour
     {
+
         public List<StoryNode> Nodes;
 
         public int NodesCount
@@ -51,13 +52,18 @@ namespace StoryGraph
 
         void OnDisable()
         {
+            setAllNodesAsleep();
+        }
+
+        public void setAllNodesAsleep()
+        {
             for (int i = 0; i < Nodes.Count; i++)
             {
                 Nodes[i].DisableNode();
             }
         }
 
-        void StartNodeGraph()
+        public void StartNodeGraph()
         {
 
             List<StoryNode> storyNodes = new List<StoryNode>();
@@ -280,6 +286,11 @@ namespace StoryGraph
         {
             selectedInPoint = null;
             selectedOutPoint = null;
+        }
+
+        public void BuildObject()
+        {
+
         }
 
 #endif

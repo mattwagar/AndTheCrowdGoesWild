@@ -9,6 +9,7 @@ public class PopMarbleEvent : MonoBehaviour
     public Transform ThumbPoint;
     public Transform IndexPoint;
 	public ParticleSystem particleSystem;
+	public AudioSource ambientAudio;
     protected float _distance;
 	protected Vector3 _cacheLocalScale;
 	public bool Popped = false;
@@ -37,6 +38,7 @@ public class PopMarbleEvent : MonoBehaviour
         
 		if (distance < _distance/4 && Popped == false){
 			particleSystem.Emit(20);
+			if(ambientAudio != null) ambientAudio.Play();
 			Popped = true;
 		}
 		else if (distance < _distance &&  distance >= _distance/4)
