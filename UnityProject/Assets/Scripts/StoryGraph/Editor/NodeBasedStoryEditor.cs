@@ -364,7 +364,10 @@ namespace StoryGraph
             string _storyNodeName = _storyNode.MenuName.Contains('/') ? _storyNode.MenuName.Substring(_storyNode.MenuName.LastIndexOf("/") + 1) : _storyNode.MenuName;
 
             InitializeNodes();
-            var storyNode = (StoryNode)ScriptableObject.CreateInstance(_storyNode.GetType());
+            var storyNode = new GameObject().AddComponent(_storyNode.GetType()) as StoryNode;
+            storyNode.gameObject.hideFlags = HideFlags.HideInHierarchy;
+            storyNode.gameObject.transform.parent = SelectedStoryGraph.transform;
+            // var storyNode = (StoryNode)ScriptableObject.CreateInstance(_storyNode.GetType());
 
             storyNode.Initialize(_storyNodeName, mousePosition, 250, 90, SelectedStoryGraph);
             SelectedStoryGraph.Nodes.Add(storyNode);

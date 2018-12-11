@@ -30,6 +30,7 @@ namespace StoryGraph
 
         public override void Execute()
         {
+            Debug.Log(Id + " is Initialized");
             if(Listener != null)
             {
                 Listener.StoryListenerAction += OnListener;

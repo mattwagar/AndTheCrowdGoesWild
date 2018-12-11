@@ -22,7 +22,7 @@ namespace StoryGraph
 
 
     // [System.Serializable]
-    public class StoryNode : ScriptableObject, IComparable<StoryNode>
+    public class StoryNode : MonoBehaviour, IComparable<StoryNode>
     {
         public virtual string MenuName { get { return "StoryNode"; } }
 
@@ -72,16 +72,23 @@ namespace StoryGraph
         public List<StorySerializedPropertyType> StorySerializedPropertyTypes;
 
 
+
         public StoryNode() { }
         public virtual void Initialize(string _title, Vector2 position, float width, float height, StoryGraph _storyGraph)
         {
             storyGraph = _storyGraph;
 
             Id = "Node_" + System.Guid.NewGuid().ToString();
-            inPoint = (ConnectionPoint)ScriptableObject.CreateInstance(typeof(ConnectionPoint));
+            inPoint = new GameObject().AddComponent<ConnectionPoint>();
+            inPoint.gameObject.hideFlags = HideFlags.HideInHierarchy;
+            inPoint.gameObject.transform.parent = transform;
+            // inPoint = (ConnectionPoint)ScriptableObject.CreateInstance(typeof(ConnectionPoint));
             inPoint.Initialize(Id, ConnectionPointType.In, StoryGraphStyles.InPointStyle(), storyGraph);
 
-            outPoint = (ConnectionPoint)ScriptableObject.CreateInstance(typeof(ConnectionPoint));
+            outPoint = new GameObject().AddComponent<ConnectionPoint>();
+            outPoint.gameObject.hideFlags = HideFlags.HideInHierarchy;
+            outPoint.gameObject.transform.parent = transform;
+            // outPoint = (ConnectionPoint)ScriptableObject.CreateInstance(typeof(ConnectionPoint));
             outPoint.Initialize(Id, ConnectionPointType.Out, StoryGraphStyles.OutPointStyle(), storyGraph);
 
             title = _title;
@@ -151,7 +158,10 @@ namespace StoryGraph
             if (GUI.Button(new Rect(rect.width - 25, 5, 15, 15), "", closeButtonStyle))
             {
                 DestroySelf();
+                return;
             }
+
+            
 
             if (GUI.Toggle(new Rect(8, 5, 15, 15), enableNode, "") != enableNode)
             {
@@ -229,6 +239,9 @@ namespace StoryGraph
         public virtual void DestroySelf()
         {
             storyGraph.RemoveNode(this);
+            DestroyImmediate(inPoint.gameObject, true);
+            DestroyImmediate(outPoint.gameObject, true);
+            DestroyImmediate(this.gameObject, true);
         }
 
         public void SetSerializedSpacing()
@@ -446,15 +459,15 @@ namespace StoryGraph
         {
             DestroySelf();
         }
-
-        public virtual void SelectNode(bool isSelected)
-        {
-            storyGraph.SetConnectionsSelected(this, isSelected);
-        }
 #endif
         public int CompareTo(StoryNode storyNode)
         {
             return 0;
+        }
+
+        public virtual void SelectNode(bool isSelected)
+        {
+            storyGraph.SetConnectionsSelected(this, isSelected);
         }
 
         public virtual void WakeUpNode(string _loopId)

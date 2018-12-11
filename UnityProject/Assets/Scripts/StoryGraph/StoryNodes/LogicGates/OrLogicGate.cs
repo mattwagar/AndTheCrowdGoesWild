@@ -12,10 +12,6 @@ namespace StoryGraph {
     #if UNITY_EDITOR    
 
         public override string MenuName {get{return "Logic/Or";}}
-        public override void SetSerializedProperties()
-        {    
-            AddSerializedProperty("orState", "Check If Nodes Are");
-        }
     #endif
         public override void Execute()
         {
@@ -23,6 +19,10 @@ namespace StoryGraph {
 			{
                 GoToNextNode();
 			}
+        }
+        public override void SetSerializedProperties()
+        {    
+            AddSerializedProperty("orState", "Check If Nodes Are");
         }
 	}
 }

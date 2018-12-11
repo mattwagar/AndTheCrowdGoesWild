@@ -32,8 +32,6 @@ public class FlameHandEvent : MonoBehaviour
 
 		float distance = Vector3.Distance(ThumbPoint.position, IndexPoint.position); 
 
-		Debug.Log(distance);
-		
         
 		if (distance < _distance/4 && Pinched == false){
 			Pinched = true;

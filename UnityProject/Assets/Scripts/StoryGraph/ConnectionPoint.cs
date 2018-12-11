@@ -8,7 +8,7 @@ namespace StoryGraph
     public enum ConnectionPointType { In, Out }
 
     // [System.Serializable]
-    public class ConnectionPoint : ScriptableObject
+    public class ConnectionPoint : MonoBehaviour
     {
         public string Id;
         public string NodeId;
@@ -19,11 +19,11 @@ namespace StoryGraph
 
         #if UNITY_EDITOR      
         float nodeCount = 1;  
-        public float nodeIndex = 1;  
+        float nodeIndex = 1;  
         string label = "";
         public Rect rect;
         public GUIStyle style;
-        public bool appendBottom = false;
+        bool appendBottom = false;
 
         public void Initialize(string NodeId, ConnectionPointType type, GUIStyle style, StoryGraph _storyGraph, bool _appendBottom = false, float _nodeIndex = 1f, float _nodeCount = 1f)
         {
