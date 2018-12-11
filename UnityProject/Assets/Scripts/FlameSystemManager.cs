@@ -15,6 +15,7 @@ public class FlameSystemManager : MonoBehaviour {
 
 	private bool handFlameToggle;
 	private bool sparkSystemToggle;
+	private bool isSparkAudioPlaying = false;
 
 	public void ToggleHandFlame()
 	{
@@ -41,12 +42,17 @@ public class FlameSystemManager : MonoBehaviour {
 			sparkSystem.Play();
 			audioSource.loop = true;
 			audioSource.clip = sparklerAudio;
-			audioSource.Play();
+			if(isSparkAudioPlaying == false)
+			{
+				audioSource.Play();
+			}
+			isSparkAudioPlaying = true;
 			sparkSystemToggle = true;
 		}
 		else
 		{
 			sparkSystem.Stop();
+			isSparkAudioPlaying = false;
 			audioSource.Stop();
 			sparkSystemToggle = false;
 		}

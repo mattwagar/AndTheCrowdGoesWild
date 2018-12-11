@@ -7,7 +7,6 @@ namespace StoryGraph
 {
     public class StoryGraph : MonoBehaviour
     {
-
         public List<StoryNode> Nodes;
 
         public int NodesCount
@@ -52,18 +51,13 @@ namespace StoryGraph
 
         void OnDisable()
         {
-            setAllNodesAsleep();
-        }
-
-        public void setAllNodesAsleep()
-        {
             for (int i = 0; i < Nodes.Count; i++)
             {
                 Nodes[i].DisableNode();
             }
         }
 
-        public void StartNodeGraph()
+        void StartNodeGraph()
         {
 
             List<StoryNode> storyNodes = new List<StoryNode>();
@@ -92,6 +86,8 @@ namespace StoryGraph
 #if UNITY_EDITOR
 
         // public Vector2 Scale = new Vector2(1,1);
+        public Rect cachedRect;
+        public Vector2 PivotPoint = new Vector2(Screen.width / 2, Screen.height / 2);
         public float Zoom = 1.0f;
 
         public void SetConnectionsSelected(StoryNode storyNode, bool _isSelected)
@@ -191,7 +187,7 @@ namespace StoryGraph
 
                 for (int i = 0; i < connectionsToRemove.Count; i++)
                 {
-                    Connections.Remove(connectionsToRemove[i]);
+                    RemoveConnection(connectionsToRemove[i]);
                 }
 
                 connectionsToRemove = null;
@@ -215,7 +211,7 @@ namespace StoryGraph
 
                 for (int i = 0; i < connectionsToRemove.Count; i++)
                 {
-                    Connections.Remove(connectionsToRemove[i]);
+                    RemoveConnection(connectionsToRemove[i]);
                 }
 
                 connectionsToRemove = null;
@@ -223,10 +219,18 @@ namespace StoryGraph
             Nodes.Remove(node);
         }
 
+        public void setAllNodesAsleep()
+        {
+            for (int i = 0; i < Nodes.Count; i++)
+            {
+                Nodes[i].DisableNode();
+            }
+        }
+
         public void RemoveConnection(Connection connection)
         {
             Connections.Remove(connection);
-
+            DestroyImmediate(connection.gameObject);
         }
 
         public void ClickConnectionInPoint(ConnectionPoint inPoint)
@@ -269,7 +273,10 @@ namespace StoryGraph
 
         public void CreateConnection()
         {
-            Connection connection = (Connection)ScriptableObject.CreateInstance(typeof(Connection));
+            // Connection connection = (Connection)ScriptableObject.CreateInstance(typeof(Connection));
+            Connection connection = new GameObject().AddComponent<Connection>();
+            connection.gameObject.hideFlags = HideFlags.HideInHierarchy;
+            connection.gameObject.transform.parent = transform;
 
             connection.Initialize(selectedInPoint, selectedOutPoint, this);
 
@@ -286,11 +293,6 @@ namespace StoryGraph
         {
             selectedInPoint = null;
             selectedOutPoint = null;
-        }
-
-        public void BuildObject()
-        {
-
         }
 
 #endif

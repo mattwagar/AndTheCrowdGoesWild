@@ -23,7 +23,10 @@ namespace StoryGraph
             base.Initialize(_title, position, width, height, _storyGraph);
 
             ExtraPointSpacing = (EditorGUIUtility.singleLineHeight + 10) *2;
-            elseOutPoint = (ConnectionPoint)ScriptableObject.CreateInstance(typeof(ConnectionPoint));
+            // elseOutPoint = (ConnectionPoint)ScriptableObject.CreateInstance(typeof(ConnectionPoint));
+            elseOutPoint = new GameObject().AddComponent<ConnectionPoint>();
+            elseOutPoint.gameObject.hideFlags = HideFlags.HideInHierarchy;
+            elseOutPoint.gameObject.transform.parent = transform;
             elseOutPoint.Initialize(Id, ConnectionPointType.Out, StoryGraphStyles.OutPointStyle(), storyGraph, false, 3);
             outPoint.setNodeIndex(2);
 

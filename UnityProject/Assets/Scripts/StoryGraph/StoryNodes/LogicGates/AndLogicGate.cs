@@ -11,11 +11,6 @@ namespace StoryGraph {
     
     #if UNITY_EDITOR    
         public override string MenuName {get{return "Logic/And";}}
-        
-        public override void SetSerializedProperties()
-        {    
-            AddSerializedProperty("andState", "Check If Nodes Are");
-        }
     #endif
 
         public override void WakeUpNode(string _loopId){
@@ -36,6 +31,10 @@ namespace StoryGraph {
 			{
                 GoToNextNode();
 			}
+        }
+        public override void SetSerializedProperties()
+        {    
+            AddSerializedProperty("andState", "Check If Nodes Are");
         }
 	}
 }

@@ -7,7 +7,6 @@ using StoryGraph;
 public class FadeColorImageCoroutineNode : StoryNode {
 
 	public Image Image;
-	public Color Color;
 	public float Duration;
 	public AnimationCurve AnimCurve;
 
@@ -21,7 +20,6 @@ public class FadeColorImageCoroutineNode : StoryNode {
     public override void SetSerializedProperties()
     {    
         AddSerializedProperty("Image");
-        AddSerializedProperty("Color");
         AddSerializedProperty("Duration");
         AddSerializedProperty("AnimCurve");
     }
@@ -43,7 +41,7 @@ public class FadeColorImageCoroutineNode : StoryNode {
             float percent = Mathf.Clamp01(journey / Duration);
 
             float curvePercent = AnimCurve.Evaluate(percent);
-            Image.color = Color.Lerp(Image.color, Color, curvePercent);
+            Image.color = Color.Lerp(Image.color, Color.white, curvePercent);
 
             yield return null;
         }

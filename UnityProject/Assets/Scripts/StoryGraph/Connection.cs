@@ -8,7 +8,7 @@ using UnityEditor;
 
 namespace StoryGraph
 {
-    public class Connection : ScriptableObject
+    public class Connection : MonoBehaviour
     {
         public string Id;
         public ConnectionPoint inPoint;
