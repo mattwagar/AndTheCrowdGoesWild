@@ -60,8 +60,8 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _Exponent: 1
-    - _Exponent1: 1.6
-    - _Exponent2: 1
+    - _Exponent1: 3.78
+    - _Exponent2: 3.63
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
