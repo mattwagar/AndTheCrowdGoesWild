@@ -43,6 +43,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1795091401923594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4996676766001206}
+  - component: {fileID: 108813901427008404}
+  m_Layer: 0
+  m_Name: Spot Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1802589490739922
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,6 +159,7 @@ Transform:
   - {fileID: 4982461517225412}
   - {fileID: 4563711812691772}
   - {fileID: 4094402920496930}
+  - {fileID: 4996676766001206}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -159,6 +176,19 @@ Transform:
   m_Father: {fileID: 4896170070358474}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 40.917004, y: -94.86301, z: -97.826004}
+--- !u!4 &4996676766001206
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1795091401923594}
+  m_LocalRotation: {x: 0.66550374, y: -0.10870499, z: -0.11904043, w: 0.72877806}
+  m_LocalPosition: {x: -33.43503, y: 3.7448096, z: -0.84543383}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4896170070358474}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 109.243, y: 105.951996, z: 105.102}
 --- !u!108 &108099292985310870
 Light:
   m_ObjectHideFlags: 1
@@ -286,6 +316,43 @@ Light:
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 1
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!108 &108813901427008404
+Light:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1795091401923594}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 0
+  m_Color: {r: 1, g: 0.7261043, b: 0.5801887, a: 1}
+  m_Intensity: 1
+  m_Range: 31.26
+  m_SpotAngle: 53
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
