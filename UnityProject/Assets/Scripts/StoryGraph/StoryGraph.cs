@@ -43,6 +43,8 @@ namespace StoryGraph
         // public string currentLoopId;
 
 
+
+
         void OnEnable()
         {
             // currentLoopId = "Loop_"+ Time.time +System.Guid.NewGuid().ToString();
@@ -86,8 +88,6 @@ namespace StoryGraph
 #if UNITY_EDITOR
 
         // public Vector2 Scale = new Vector2(1,1);
-        public Rect cachedRect;
-        public Vector2 PivotPoint = new Vector2(Screen.width / 2, Screen.height / 2);
         public float Zoom = 1.0f;
 
         public void SetConnectionsSelected(StoryNode storyNode, bool _isSelected)
@@ -404,14 +404,14 @@ namespace StoryGraph
 
                             if (sameTimesVisited == -1)
                             {
-                                sameTimesVisited = node.timesVisited; 
-                                isAnd = false; 
+                                sameTimesVisited = node.timesVisited;
+                                isAnd = false;
                                 break;
                             }
                             if (node.storyNodeState != StoryNodeState.IsDone) isAnd = false;
                             break;
                         case AndLogicGate.AndState.IsDoneInSameLoop:
-                            if(logicNode.LoopId != node.LoopId) isAnd = false;
+                            if (logicNode.LoopId != node.LoopId) isAnd = false;
 
                             if (node.storyNodeState != StoryNodeState.IsDone) isAnd = false;
                             break;

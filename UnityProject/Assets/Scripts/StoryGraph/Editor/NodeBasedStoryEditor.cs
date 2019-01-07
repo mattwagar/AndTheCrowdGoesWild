@@ -55,6 +55,45 @@ namespace StoryGraph
             thickLineColor = new Color(0.35f, 0.35f, 0.35f);
         }
 
+        private void setHideFlags()
+        {
+
+            if (SelectedStoryGraph.Nodes != null)
+            {
+                for(int i = 0; i < SelectedStoryGraph.Nodes.Count; i++)
+                {
+                    SelectedStoryGraph.Nodes[i].gameObject.hideFlags = HideFlags.HideInHierarchy;
+                }
+
+                StoryGraph prefab = UnityEditor.PrefabUtility.GetCorrespondingObjectFromSource(SelectedStoryGraph) as StoryGraph;
+
+                if (prefab != null)
+                {
+                    for(int i = 0; i < SelectedStoryGraph.Nodes.Count; i++)
+                    {
+                        prefab.Nodes[i].gameObject.hideFlags = HideFlags.HideInHierarchy;
+                    }
+                }
+            }
+            if (SelectedStoryGraph.Connections != null)
+            {
+                for(int i = 0; i < SelectedStoryGraph.Connections.Count; i++)
+                {
+                    SelectedStoryGraph.Connections[i].gameObject.hideFlags = HideFlags.HideInHierarchy;
+                }
+
+                StoryGraph prefab = UnityEditor.PrefabUtility.GetCorrespondingObjectFromSource(SelectedStoryGraph) as StoryGraph;
+
+                if (prefab != null)
+                {
+                    for(int i = 0; i < SelectedStoryGraph.Connections.Count; i++)
+                    {
+                        prefab.Connections[i].gameObject.hideFlags = HideFlags.HideInHierarchy;
+                    }
+                }
+            }
+        }
+
         private void ShowButton(Rect rect)
         {
 
@@ -109,6 +148,8 @@ namespace StoryGraph
 
         private void drawGraph()
         {
+            setHideFlags();
+
             clippedArea = Begin(SelectedStoryGraph.Zoom, new Rect(0.0f, 0.0f, position.width, position.height));
 
             DrawGrid(20, 0.2f, smallLineColor);

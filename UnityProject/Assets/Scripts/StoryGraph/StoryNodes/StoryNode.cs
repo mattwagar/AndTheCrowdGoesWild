@@ -459,16 +459,16 @@ namespace StoryGraph
         {
             DestroySelf();
         }
+        public virtual void SelectNode(bool isSelected)
+        {
+            storyGraph.SetConnectionsSelected(this, isSelected);
+        }
 #endif
         public int CompareTo(StoryNode storyNode)
         {
             return 0;
         }
 
-        public virtual void SelectNode(bool isSelected)
-        {
-            storyGraph.SetConnectionsSelected(this, isSelected);
-        }
 
         public virtual void WakeUpNode(string _loopId)
         {
