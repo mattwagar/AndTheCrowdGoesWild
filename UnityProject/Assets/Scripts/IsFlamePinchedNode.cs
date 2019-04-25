@@ -18,7 +18,7 @@ public class IsFlamePinchedNode : StoryCondition {
     }
     public override void SetSerializedProperties()
     {    
-        AddSerializedProperty("Flame", StorySerializedPropertyType.NoLabelPropertyField);
+        AddSerializedProperty("Flame", StoryDrawer.NoLabelPropertyField);
     }
     #endif
 

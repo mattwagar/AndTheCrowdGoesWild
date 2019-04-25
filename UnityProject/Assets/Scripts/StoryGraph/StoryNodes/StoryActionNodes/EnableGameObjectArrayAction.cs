@@ -1,33 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using StoryGraph;
 
-public class EnableGameObjectArrayAction : StoryNode
+namespace StoryGraph
 {
-
-    public GameObject[] gos;
-
-    #if UNITY_EDITOR    
-    public override string MenuName {get{return "Action/Enable Game Object Array";}}
-    public override void SetStyles()
+    public class EnableGameObjectArrayAction : ActionNode
     {
-        base.SetStyles();    
-        nodeHeaderStyle = StoryGraphStyles.NodeActionStyle();
-    }
-    public override void SetSerializedProperties()
-    {    
-        AddSerializedProperty("gos", StorySerializedPropertyType.Array);
-    }
-    #endif
 
+        [StoryGraphField(StoryDrawer.Array)] public GameObject[] gos;
 
-    public override void Execute()
-    {
-        for(int i = 0; i < gos.Length; i++){
-            gos[i].SetActive(true);
+        public override string MenuName { get { return "Game Object/Enable Game Object Array"; } }
+
+        public override void Execute()
+        {
+            for (int i = 0; i < gos.Length; i++)
+            {
+                gos[i].SetActive(true);
+            }
+            GoToNextNode();
         }
-        GoToNextNode();
-    }
 
+    }
 }

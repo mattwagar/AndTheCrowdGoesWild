@@ -18,7 +18,7 @@ public class IsForcePushedNode : StoryCondition
     }
     public override void SetSerializedProperties()
     {    
-        AddSerializedProperty("ForcePush", StorySerializedPropertyType.NoLabelPropertyField);
+        AddSerializedProperty("ForcePush", StoryDrawer.NoLabelPropertyField);
     }
     #endif
 

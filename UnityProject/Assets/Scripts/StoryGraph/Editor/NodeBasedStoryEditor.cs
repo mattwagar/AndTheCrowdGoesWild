@@ -393,7 +393,7 @@ namespace StoryGraph
 
             for (int i = 0; i < StoryNodes.Count; i++)
             {
-                genericMenu.AddItem(new GUIContent(StoryNodes[i].MenuName), false, (storyNode) => OnClickAddStoryNode(storyNode, mousePosition), StoryNodes[i]);
+                genericMenu.AddItem(new GUIContent(StoryNodes[i].MenuNamePrefix+StoryNodes[i].MenuName), false, (storyNode) => OnClickAddStoryNode(storyNode, mousePosition), StoryNodes[i]);
             }
 
             genericMenu.ShowAsContext();
@@ -402,7 +402,8 @@ namespace StoryGraph
         private void OnClickAddStoryNode(System.Object _storyObject, Vector2 mousePosition)
         {
             StoryNode _storyNode = (StoryNode)_storyObject;
-            string _storyNodeName = _storyNode.MenuName.Contains('/') ? _storyNode.MenuName.Substring(_storyNode.MenuName.LastIndexOf("/") + 1) : _storyNode.MenuName;
+            string menuName = _storyNode.MenuNamePrefix + _storyNode.MenuName;
+            string _storyNodeName = menuName.Contains('/') ? menuName.Substring(menuName.LastIndexOf("/") + 1) : menuName;
 
             InitializeNodes();
             var storyNode = new GameObject().AddComponent(_storyNode.GetType()) as StoryNode;

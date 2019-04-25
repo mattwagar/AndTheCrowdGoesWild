@@ -17,7 +17,7 @@ public class DisableClothNode : StoryNode
     }
     public override void SetSerializedProperties()
     {    
-        AddSerializedProperty("cloth", StorySerializedPropertyType.NoLabelPropertyField);
+        AddSerializedProperty("cloth", StoryDrawer.NoLabelPropertyField);
     }
     #endif
 

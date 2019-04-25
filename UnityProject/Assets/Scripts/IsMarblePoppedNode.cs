@@ -18,7 +18,7 @@ public class IsMarblePoppedNode : StoryCondition
     }
     public override void SetSerializedProperties()
     {    
-        AddSerializedProperty("Marble", StorySerializedPropertyType.NoLabelPropertyField);
+        AddSerializedProperty("Marble", StoryDrawer.NoLabelPropertyField);
     }
     #endif
 

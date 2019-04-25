@@ -1,31 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace StoryGraph
 {
-    public class OnStartNode : StoryNode
+    public class OnStartNode : ListenerNode
     {
-        public bool TurnOffOnExecute = true;
-        public OnStartListener Listener;
+        [StoryGraphField(StoryDrawer.RadioButton)] public bool TurnOffOnExecute = true;
+        [StoryGraphField] public OnStartListener Listener;
 
 
-        #if UNITY_EDITOR    
-        public override string MenuName {get{return "Listener/On Start";}}
-
-		public override void SetStyles()
-        {
-            base.SetStyles();    
-            nodeHeaderStyle = StoryGraphStyles.NodeEventStyle();
-        }
-        public override void SetSerializedProperties()
-        {    
-            AddSerializedProperty("TurnOffOnExecute", "Turn Off Listener On Execute", StorySerializedPropertyType.RadioButton);
-            AddSerializedProperty("Listener");
-        }
-        #endif
+        public override string MenuName {get{return "Game Object/On Start";}}
 
         public override void Execute()
         {

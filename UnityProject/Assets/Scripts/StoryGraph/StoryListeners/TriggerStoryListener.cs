@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using StoryGraph;
 
-public class TriggerStoryListener : StoryListener {
+namespace StoryGraph
+{
+	public class TriggerStoryListener : StoryListener {
 
-	public void Trigger(){
-		if(StoryListenerAction != null)
-		{
-			StoryListenerAction.Invoke();
+		public void Trigger(){
+			if(StoryListenerAction != null)
+			{
+				StoryListenerAction.Invoke();
+			}
 		}
 	}
 }
+
