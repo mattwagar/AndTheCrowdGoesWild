@@ -6,10 +6,12 @@ public class Ghost : MonoBehaviour {
 
 	[HideInInspector]
 	public Animator animator;
+	public SkinnedMeshRenderer skinnedMeshRenderer;	
+	[HideInInspector]
 	public Material material;
 
 	void Start(){
 		animator = GetComponent<Animator>();
-		material = GetComponent<Material>();
+		material = skinnedMeshRenderer.materials[0];
 	}
 }
