@@ -1,31 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using StoryGraph;
 
-public class PlayAnimationNode : StoryNode
+namespace StoryGraph
 {
-
-    public Animation animation;
-
-    #if UNITY_EDITOR    
-    public override string MenuName {get{return "Action/Play Animation";}}
-    public override void SetStyles()
+    public class PlayAnimationNode : ActionNode
     {
-        base.SetStyles();    
-        nodeHeaderStyle = StoryGraphStyles.NodeActionStyle();
-    }
-    public override void SetSerializedProperties()
-    {    
-        AddSerializedProperty("animation", StorySerializedPropertyType.NoLabelPropertyField);
-    }
-    #endif
 
+        [StoryGraphField] public Animation animation;
 
-    public override void Execute()
-    {
-        animation.Play();
-        GoToNextNode();
+        public override string MenuName {get{return "Action/Play Animation";}}
+
+        public override void Execute()
+        {
+            animation.Play();
+            GoToNextNode();
+        }
     }
-
 }

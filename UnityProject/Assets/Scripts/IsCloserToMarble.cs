@@ -3,28 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using StoryGraph;
 
-public class IsRightHandCloserToMarble : StoryCondition {
+public class IsRightHandCloserToMarble : ConditionNode {
 
-	public GameObject marble;
-    public GameObject leftHand;
-    public GameObject rightHand;
+	[StoryGraphField] public GameObject marble;
+    [StoryGraphField] public GameObject leftHand;
+    [StoryGraphField] public GameObject rightHand;
 
-
-    #if UNITY_EDITOR    
     public override string MenuName {get{return "Condition/Is Right Hand Closer To Marble";}}
-
-    public override void SetStyles()
-    {
-        base.SetStyles();    
-        nodeHeaderStyle = StoryGraphStyles.NodeConditionStyle();
-    }
-    public override void SetSerializedProperties()
-    {    
-        AddSerializedProperty("marble");
-        AddSerializedProperty("leftHand");
-        AddSerializedProperty("rightHand");
-    }
-    #endif
 
     public override void Execute()
     {

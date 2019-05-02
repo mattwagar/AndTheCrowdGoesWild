@@ -1,33 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using StoryGraph;
 
-public class IsGameObjectEnabled : StoryNode
+namespace StoryGraph
 {
-    public GameObject go;
-
-
-    #if UNITY_EDITOR    
-    public override string MenuName {get{return "Condition/Is GameObject Enabled";}}
-
-    public override void SetStyles()
+    public class IsGameObjectEnabled : ConditionNode
     {
-        base.SetStyles();    
-        nodeHeaderStyle = StoryGraphStyles.NodeConditionStyle();
-    }
-    public override void SetSerializedProperties()
-    {    
-        AddSerializedProperty("go", StorySerializedPropertyType.NoLabelPropertyField);
-    }
-    #endif
+        [StoryGraphField(StoryDrawer.NoLabelPropertyField)] public GameObject IsEnabledObject;
 
-    public override void Execute()
-    {
-        if(go.activeSelf)
+
+        public override string MenuName { get { return "Is GameObject Enabled"; } }
+
+        public override void Execute()
         {
-            GoToNextNode();
+            if (IsEnabledObject.activeSelf)
+            {
+                GoToTrueNode();
+            } else {
+                GoToFalseNode();
+            }
         }
-    }
 
+    }
 }

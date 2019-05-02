@@ -1,50 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using StoryGraph;
 
-public class ScaleCoroutineNode : StoryNode {
-
-	public GameObject Origin;
-	public GameObject Target;
-	public float Duration;
-	public AnimationCurve AnimCurve;
-
-	#if UNITY_EDITOR    
-    public override string MenuName {get{return "Coroutine/GameObject/Scale";}}
-    public override void SetStyles()
-    {
-        base.SetStyles();    
-        nodeHeaderStyle = StoryGraphStyles.NodeCoroutineStyle();
-    }
-    public override void SetSerializedProperties()
-    {    
-        AddSerializedProperty("Origin");
-        AddSerializedProperty("Target");
-        AddSerializedProperty("Duration");
-        AddSerializedProperty("AnimCurve");
-    }
-    #endif
-	
-	public override void Execute()
-	{
-		storyGraph.StartCoroutine(ScaleTarget());
-	}
-	public IEnumerator ScaleTarget()
+namespace StoryGraph
+{
+    public class ScaleCoroutineNode : CoroutineNode
     {
 
-        float journey = 0f;
-        Vector3 beginningScale = Origin.transform.localScale;
-        while (journey <= Duration)
+        [StoryGraphField] public GameObject Origin;
+        [StoryGraphField] public GameObject Target;
+        [StoryGraphField] public float Duration;
+        [StoryGraphField] public AnimationCurve AnimCurve;
+
+        public override string MenuName { get { return "Game Object/Scale"; } }
+
+        public override void Execute()
         {
-            journey = journey + Time.deltaTime;
-            float percent = Mathf.Clamp01(journey / Duration);
-
-            float curvePercent = AnimCurve.Evaluate(percent);
-            Origin.transform.localScale = Vector3.Lerp(beginningScale, Target.transform.localScale, curvePercent);
-
-            yield return null;
+            storyGraph.StartCoroutine(ScaleTarget());
         }
-        GoToNextNode();
+        public IEnumerator ScaleTarget()
+        {
+
+            float journey = 0f;
+            Vector3 startingScale = Origin.transform.localScale;
+            while (journey <= Duration)
+            {
+                journey = journey + Time.deltaTime;
+                float percent = Mathf.Clamp01(journey / Duration);
+
+                float curvePercent = AnimCurve.Evaluate(percent);
+                Origin.transform.localScale = Vector3.Lerp(startingScale, Target.transform.localScale, curvePercent);
+
+                yield return null;
+            }
+            GoToNextNode();
+        }
     }
 }

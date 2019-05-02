@@ -118,7 +118,6 @@ namespace StoryGraph
             GUIStyle inPointStyle = new GUIStyle();
             inPointStyle.normal.background = EditorGUIUtility.Load("builtin skins/lightskin/images/btn right.png") as Texture2D;
             inPointStyle.active.background = EditorGUIUtility.Load("builtin skins/lightskin/images/btn right on.png") as Texture2D;
-            // inPointStyle.active.background = EditorGUIUtility.Load("builtin skins/lightskin/images/btn left on.png") as Texture2D;
             inPointStyle.border = new RectOffset(2, 2, 15, 15);
             return inPointStyle;
         }
@@ -141,7 +140,6 @@ namespace StoryGraph
         {
             GUIStyle isAsleepStyle = new GUIStyle();
             isAsleepStyle.normal.textColor = new Color(1f, 0.5f, 0.5f, 1);
-            // isAsleepStyle.fontSize = 10;
             isAsleepStyle.alignment = TextAnchor.UpperRight;
             return isAsleepStyle;
         }
@@ -149,7 +147,6 @@ namespace StoryGraph
         {
             GUIStyle isAwakeStyle = new GUIStyle();
             isAwakeStyle.normal.textColor = new Color(1f, 1f, 0, 1);
-            // isAwakeStyle.fontSize = 10;
             isAwakeStyle.alignment = TextAnchor.UpperRight;
             return isAwakeStyle;
         }
@@ -157,7 +154,6 @@ namespace StoryGraph
         {
             GUIStyle isDoneStyle = new GUIStyle();
             isDoneStyle.normal.textColor = new Color(0.25f, 1f, 0.25f, 1);
-            // isDoneStyle.fontSize = 10;
             isDoneStyle.alignment = TextAnchor.UpperRight;
             return isDoneStyle;
         }
