@@ -9,14 +9,14 @@ public class PopMarbleEvent : MonoBehaviour
     public Transform ThumbPoint;
     public Transform IndexPoint;
 	public ParticleSystem particleSystem;
+	public HandEffect handEffect;
 	public AudioSource ambientAudio;
     protected float _distance;
 	protected Vector3 _cacheLocalScale;
 	public bool Popped = false;
 	protected enum PoseState {Idle, OkHand};
 	protected PoseState poseState = PoseState.Idle;
-
-
+	
 	public StoryListener popListener;
 
     void Start()
@@ -40,6 +40,7 @@ public class PopMarbleEvent : MonoBehaviour
 			particleSystem.Emit(20);
 			if(ambientAudio != null) ambientAudio.Play();
 			Popped = true;
+			handEffect.ActivateHandEffect();
 		}
 		else if (distance < _distance &&  distance >= _distance/4)
         {
