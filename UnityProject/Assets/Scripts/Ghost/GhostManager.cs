@@ -5,12 +5,24 @@ using UnityEngine;
 public class GhostManager : MonoBehaviour
 {
 
-    public List<Ghost> Ghosts;
+    [HideInInspector]
+    public Ghost[] Ghosts;
+
+    public Texture2D HappyGhostTex;
+    public Texture2D WowGhostTex;
+    public Texture2D PleasedGhostTex;
+    public Texture2D TerriefiedGhostTex;
+    public Texture2D YawnGhostTex;
+    public Texture2D ExcitedGhostTex;
 
     // Use this for initialization
     void Start()
     {
-
+        Ghosts = new Ghost[transform.childCount];
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            Ghosts[i] = transform.GetChild(i).GetComponent<Ghost>();
+        }
     }
 
     // Update is called once per frame
@@ -19,25 +31,32 @@ public class GhostManager : MonoBehaviour
 
     }
 
+    private enum GhostState {Clap, Run, Gasp, Idle, Yawn, Wiggle}
+    private GhostState state = GhostState.Idle;
+
     public void Clap()
     {
-        for (int i = 0; i < Ghosts.Count; i++)
-        {
-			int rnd = Random.Range(0, 2);
 
-			if(rnd == 0){
-				Ghosts[i].animator.Play("Clap_01");
-			}else if(rnd == 1){
-				Ghosts[i].animator.Play("Clap_02");
-			}else if(rnd == 2){
-				Ghosts[i].animator.Play("Wiggle");
-			}
+        if(state != GhostState.Clap){
+            for (int i = 0; i < Ghosts.Length; i++)
+            {
+                int rnd = Random.Range(0, 2);
+
+                if(rnd == 0){
+                    Ghosts[i].animator.Play("Clap_01");
+                }else if(rnd == 1){
+                    Ghosts[i].animator.Play("Clap_02");
+                }else if(rnd == 2){
+                    Ghosts[i].animator.Play("Wiggle");
+                }
+            }
+            state = GhostState.Clap;
         }
     }
 
     public void RunAway()
     {
-        for (int i = 0; i < Ghosts.Count; i++)
+        for (int i = 0; i < Ghosts.Length; i++)
         {
             Ghosts[i].animator.Play("Running");
         }
@@ -45,7 +64,7 @@ public class GhostManager : MonoBehaviour
 
     public void Gasp()
     {
-        for (int i = 0; i < Ghosts.Count; i++)
+        for (int i = 0; i < Ghosts.Length; i++)
         {
             Ghosts[i].animator.Play("Gasp");
         }
@@ -53,7 +72,7 @@ public class GhostManager : MonoBehaviour
 
     public void Idle()
     {
-        for (int i = 0; i < Ghosts.Count; i++)
+        for (int i = 0; i < Ghosts.Length; i++)
         {
             Ghosts[i].animator.Play("Idle");
         }
@@ -61,7 +80,7 @@ public class GhostManager : MonoBehaviour
 
     public void Yawn()
     {
-        for (int i = 0; i < Ghosts.Count; i++)
+        for (int i = 0; i < Ghosts.Length; i++)
         {
             Ghosts[i].animator.Play("Yawn");
         }
@@ -69,7 +88,7 @@ public class GhostManager : MonoBehaviour
 
     public void Wiggle()
     {
-        for (int i = 0; i < Ghosts.Count; i++)
+        for (int i = 0; i < Ghosts.Length; i++)
         {
             Ghosts[i].animator.Play("Wiggle");
         }
