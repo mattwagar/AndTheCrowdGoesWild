@@ -8,6 +8,8 @@ public class FlameSystemManager : MonoBehaviour {
 	public ParticleSystem sparkSystem;
 	public ParticleSystem fireworkSystem;
 
+	public GhostManager ghostManager;
+
 	public AudioSource audioSource;
 	public AudioClip fireAudio;
 	public AudioClip sparklerAudio;
@@ -64,6 +66,8 @@ public class FlameSystemManager : MonoBehaviour {
 		audioSource.loop = false;
 		audioSource.clip = fireworkAudio;
 		audioSource.Play();
+
+		ghostManager.Clap();
 		
 	}
 }

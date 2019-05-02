@@ -8,7 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/GhostyAnimation.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Week1v3.unity
     guid: 5ae0bef0877908546b59837b31787204
+  - enabled: 0
+    path: Assets/Scenes/Week4v1.unity
+    guid: b75bbf39a872eea4485c88961fa47055
+  - enabled: 1
+    path: Assets/Scenes/SpringTerm.unity
+    guid: 893b262967672ea4cbd8c19b4506a96c
   m_configObjects: {}
