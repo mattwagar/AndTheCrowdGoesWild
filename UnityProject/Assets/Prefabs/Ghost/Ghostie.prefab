@@ -712,6 +712,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  skinnedMeshRenderer: {fileID: 137477735027848314}
+  material: {fileID: 0}
 --- !u!137 &137445362640071650
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

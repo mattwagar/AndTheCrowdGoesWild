@@ -40,14 +40,17 @@ public class GhostManager : MonoBehaviour
         if(state != GhostState.Clap){
             for (int i = 0; i < Ghosts.Length; i++)
             {
-                int rnd = Random.Range(0, 2);
+                int rnd = Random.Range(0, 10);
 
-                if(rnd == 0){
+                if(rnd <= 4){
                     Ghosts[i].animator.Play("Clap_01");
-                }else if(rnd == 1){
+                    Ghosts[i].material.mainTexture = PleasedGhostTex;
+                }else if(rnd <= 8){
                     Ghosts[i].animator.Play("Clap_02");
-                }else if(rnd == 2){
+                    Ghosts[i].material.mainTexture = ExcitedGhostTex;
+                }else if(rnd == 9){
                     Ghosts[i].animator.Play("Wiggle");
+                    Ghosts[i].material.mainTexture = WowGhostTex;
                 }
             }
             state = GhostState.Clap;
