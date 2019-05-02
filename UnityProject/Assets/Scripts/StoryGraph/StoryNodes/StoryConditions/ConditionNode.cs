@@ -5,11 +5,12 @@ using UnityEditor;
 
 namespace StoryGraph
 {
-    public abstract class StoryCondition : StoryNode
+    public abstract class ConditionNode : StoryNode
     {
         public ConnectionPoint elseOutPoint;
 
 #if UNITY_EDITOR
+        public override string MenuNamePrefix {get{return "Condition/";}}
 
         public override void SetStyles()
         {
@@ -23,7 +24,6 @@ namespace StoryGraph
             base.Initialize(_title, position, width, height, _storyGraph);
 
             ExtraPointSpacing = (EditorGUIUtility.singleLineHeight + 10) *2;
-            // elseOutPoint = (ConnectionPoint)ScriptableObject.CreateInstance(typeof(ConnectionPoint));
             elseOutPoint = new GameObject().AddComponent<ConnectionPoint>();
             elseOutPoint.gameObject.hideFlags = HideFlags.HideInHierarchy;
             elseOutPoint.gameObject.transform.parent = transform;
@@ -42,6 +42,9 @@ namespace StoryGraph
             {
                 serializedObject = new SerializedObject(this);
             }
+
+            elseOutPoint.setNodeIndex(3);
+            outPoint.setNodeIndex(2);
 
             DrawConnectionPoints();
 

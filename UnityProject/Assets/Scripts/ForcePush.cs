@@ -12,6 +12,7 @@ public class ForcePush : MonoBehaviour {
 	public bool pushed = false;
 
 	void Start(){
+		Debug.Log(onForcePush);
 		ResetAverageDistance();
 	}
 
@@ -24,9 +25,11 @@ public class ForcePush : MonoBehaviour {
 	
 	public void ForcePushGesture(){
 		averageDistance =  AverageDistance(cachedPositions);
-		if(/*onForcePush != null && onForcePush.StoryListenerAction != null && */averageDistance > distanceThreshold){
+		if(onForcePush != null && onForcePush.StoryListenerAction != null && averageDistance > distanceThreshold){
+			Debug.Log(onForcePush);
+			Debug.Log(onForcePush.StoryListenerAction);
 			pushed = true;
-			// onForcePush.StoryListenerAction.Invoke();
+			onForcePush.StoryListenerAction.Invoke();
 		}
 		cachedPositions = new Vector3[]{transform.position,cachedPositions[0],cachedPositions[1]};
 	}

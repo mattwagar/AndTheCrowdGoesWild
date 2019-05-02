@@ -40,14 +40,8 @@ namespace StoryGraph
             set { selectedNode = value; }
         }
 
-        // public string currentLoopId;
-
-
-
-
         void OnEnable()
         {
-            // currentLoopId = "Loop_"+ Time.time +System.Guid.NewGuid().ToString();
             StartNodeGraph();
         }
 
@@ -59,6 +53,9 @@ namespace StoryGraph
             }
         }
 
+        /// <summary>
+        /// Starts on nodes with no inPoint
+        /// </summary>
         void StartNodeGraph()
         {
 
@@ -81,15 +78,14 @@ namespace StoryGraph
             }
         }
 
-        // public void updateLoopId(){
-        //     currentLoopId = "Loop_"+ Time.time +System.Guid.NewGuid().ToString();
-        // }
 
 #if UNITY_EDITOR
 
-        // public Vector2 Scale = new Vector2(1,1);
         public float Zoom = 1.0f;
 
+        /// <summary>
+        /// Highlights connections when selecting a StoryNode
+        /// </summary>
         public void SetConnectionsSelected(StoryNode storyNode, bool _isSelected)
         {
 
@@ -129,7 +125,10 @@ namespace StoryGraph
             }
         }
 
-        public void SetConnectionsSelected(StoryCondition conditionNode, bool _isSelected)
+        /// <summary>
+        /// Highlights connections when selecting a ConditionNode
+        /// </summary>
+        public void SetConnectionsSelected(ConditionNode conditionNode, bool _isSelected)
         {
 
             string inPointId = conditionNode.inPoint.Id;
@@ -162,7 +161,7 @@ namespace StoryGraph
                             Connections[i].isSelected = _isSelected;
                         }
                     }
-                    //If you are picking the node, and this one is set to be not selected (should never happen)
+                    //If you are picking the node, and this one is set to be not selected
                     else if (conditionNode.Id == selectedNode.Id && _isSelected == false)
                     {
                         Connections[i].isSelected = false;
@@ -171,6 +170,9 @@ namespace StoryGraph
             }
         }
 
+        /// <summary>
+        /// Removes StoryNode and all connections attached to that StoryNode
+        /// </summary>
         public void RemoveNode(StoryNode node)
         {
             if (node != null && Connections != null)
@@ -195,7 +197,10 @@ namespace StoryGraph
             Nodes.Remove(node);
         }
 
-        public void RemoveNode(StoryCondition node)
+        /// <summary>
+        /// Removes ConditionNode and all connections attached to that ConditionNode
+        /// </summary>
+        public void RemoveNode(ConditionNode node)
         {
             if (node != null && Connections != null)
             {
@@ -219,6 +224,9 @@ namespace StoryGraph
             Nodes.Remove(node);
         }
 
+        /// <summary>
+        /// Sets all nodes state to sleep
+        /// </summary>
         public void setAllNodesAsleep()
         {
             for (int i = 0; i < Nodes.Count; i++)
@@ -227,12 +235,18 @@ namespace StoryGraph
             }
         }
 
+        /// <summary>
+        /// Removes Connection from list and gameObject from scene
+        /// </summary>
         public void RemoveConnection(Connection connection)
         {
             Connections.Remove(connection);
             DestroyImmediate(connection.gameObject);
         }
 
+        /// <summary>
+        /// Creates Bezier Curve from clicking InPoint Button
+        /// </summary>
         public void ClickConnectionInPoint(ConnectionPoint inPoint)
         {
 
@@ -252,6 +266,9 @@ namespace StoryGraph
             }
         }
 
+        /// <summary>
+        /// Creates Bezier Curve from clicking OutPoint Button
+        /// </summary>
         public void ClickConnectionOutPoint(ConnectionPoint outPoint)
         {
 
@@ -271,9 +288,11 @@ namespace StoryGraph
             }
         }
 
+        /// <summary>
+        /// Connects InPoint and OutPoint with a Bezier Curve
+        /// </summary>
         public void CreateConnection()
         {
-            // Connection connection = (Connection)ScriptableObject.CreateInstance(typeof(Connection));
             Connection connection = new GameObject().AddComponent<Connection>();
             connection.gameObject.hideFlags = HideFlags.HideInHierarchy;
             connection.gameObject.transform.parent = transform;
@@ -289,6 +308,9 @@ namespace StoryGraph
 
         }
 
+        /// <summary>
+        /// Detaches currently selected curve from the mouse
+        /// </summary>
         public void ClearConnectionSelection()
         {
             selectedInPoint = null;
@@ -297,6 +319,9 @@ namespace StoryGraph
 
 #endif
 
+        /// <summary>
+        /// Filters for StoryNode linearly by id
+        /// </summary>
         public StoryNode GetNodeById(string ConnectionId)
         {
             for (int i = 0; i < Nodes.Count; i++)
@@ -309,6 +334,9 @@ namespace StoryGraph
             return null;
         }
 
+        /// <summary>
+        /// Filters for Connection linearly by id
+        /// </summary>
         public Connection GetConnectionById(string ConnectionId)
         {
             for (int i = 0; i < Connections.Count; i++)
@@ -321,11 +349,14 @@ namespace StoryGraph
             return null;
         }
 
+        /// <summary>
+        /// Traverses connection via OutPoint from previous node, and executes the node it's attached to
+        /// </summary>
         public void TraverseConnection(string outPointId, string loopId)
         {
-            for (int i = 0; i < Connections.Count; i++) //for each connection
+            for (int i = 0; i < Connections.Count; i++) 
             {
-                if (Connections[i].outPoint != null && Connections[i].outPoint.Id == outPointId) //if that connection's outPoint matches the ConnectionPoint Id
+                if (Connections[i].outPoint != null && Connections[i].outPoint.Id == outPointId)
                 {
                     Connections[i].IsDone = true;
 
@@ -334,6 +365,9 @@ namespace StoryGraph
             }
         }
 
+        /// <summary>
+        /// Wakes up Node thereby getting to the node's Execute function
+        /// </summary>
         public void ExecuteNode(string NodeId, string loopId)
         {
             StoryNode storyNode = GetNodeById(NodeId);
@@ -343,6 +377,9 @@ namespace StoryGraph
             }
         }
 
+        /// <summary>
+        /// Based on the logic gate's state, this will return true if it meets that state's requirements (boolean function)
+        /// </summary>
         public bool PassesOrGate(OrLogicGate logicNode)
         {
             string inPointId = logicNode.inPoint.Id;
@@ -378,6 +415,9 @@ namespace StoryGraph
             return false;
         }
 
+        /// <summary>
+        /// Based on the logic gate's state, this will return true if it meets that state's requirements (boolean function)
+        /// </summary>
         public bool PassesAndGate(AndLogicGate logicNode)
         {
             string inPointId = logicNode.inPoint.Id;

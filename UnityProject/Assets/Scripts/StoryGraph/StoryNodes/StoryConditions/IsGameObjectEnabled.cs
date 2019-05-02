@@ -4,30 +4,20 @@ using UnityEngine;
 
 namespace StoryGraph
 {
-    public class IsGameObjectEnabled : StoryNode
+    public class IsGameObjectEnabled : ConditionNode
     {
-        public GameObject go;
+        [StoryGraphField(StoryDrawer.NoLabelPropertyField)] public GameObject IsEnabledObject;
 
 
-#if UNITY_EDITOR
-        public override string MenuName { get { return "Condition/Is GameObject Enabled"; } }
-
-        public override void SetStyles()
-        {
-            base.SetStyles();
-            nodeHeaderStyle = StoryGraphStyles.NodeConditionStyle();
-        }
-        public override void SetSerializedProperties()
-        {
-            AddSerializedProperty("go", StoryDrawer.NoLabelPropertyField);
-        }
-#endif
+        public override string MenuName { get { return "Is GameObject Enabled"; } }
 
         public override void Execute()
         {
-            if (go.activeSelf)
+            if (IsEnabledObject.activeSelf)
             {
-                GoToNextNode();
+                GoToTrueNode();
+            } else {
+                GoToFalseNode();
             }
         }
 

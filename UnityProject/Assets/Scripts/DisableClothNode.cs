@@ -3,23 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using StoryGraph;
 
-public class DisableClothNode : StoryNode
+public class DisableClothNode : ActionNode
 {
 
-    public Cloth cloth;
-
-    #if UNITY_EDITOR    
+    [StoryGraphField] public Cloth cloth;
+  
     public override string MenuName {get{return "Action/Disable Cloth";}}
-    public override void SetStyles()
-    {
-        base.SetStyles();    
-        nodeHeaderStyle = StoryGraphStyles.NodeActionStyle();
-    }
-    public override void SetSerializedProperties()
-    {    
-        AddSerializedProperty("cloth", StoryDrawer.NoLabelPropertyField);
-    }
-    #endif
+
 
 
     public override void Execute()

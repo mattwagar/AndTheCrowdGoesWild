@@ -18,11 +18,6 @@ namespace StoryGraph
 
     public enum StoryDrawer { PropertyField, UnityEvent, Array, NoLabelPropertyField, RadioButton, NoLabelReadOnly, IntegerField }
     public enum StoryNodeState { IsAsleep, IsAwake, IsDone, IsDisabled }
-    // [Serializable]
-    // public class StoryNodeEvent : UnityEvent <StoryNode> {}
-
-
-    // [System.Serializable]
     public class StoryNode : MonoBehaviour, IComparable<StoryNode>
     {
         public virtual string MenuName { get { return "StoryNode"; } }
@@ -35,10 +30,6 @@ namespace StoryGraph
         public int timesVisited = 0;
         public StoryGraph storyGraph;
         public string LoopId;
-        // public string LoopId {
-        //     get{return loopId;}
-        //     set{loopId = value;}
-        // }
 
 #if UNITY_EDITOR
         public Rect originalRect;
@@ -70,7 +61,6 @@ namespace StoryGraph
 
         public List<SerializedProperty> SerializedProperties;
         public List<string> Labels;
-        // public List<bool> IsObjectField;
         public List<StoryDrawer> StoryDrawers;
 
 
@@ -84,13 +74,11 @@ namespace StoryGraph
             inPoint = new GameObject().AddComponent<ConnectionPoint>();
             inPoint.gameObject.hideFlags = HideFlags.HideInHierarchy;
             inPoint.gameObject.transform.parent = transform;
-            // inPoint = (ConnectionPoint)ScriptableObject.CreateInstance(typeof(ConnectionPoint));
             inPoint.Initialize(Id, ConnectionPointType.In, StoryGraphStyles.InPointStyle(), storyGraph);
 
             outPoint = new GameObject().AddComponent<ConnectionPoint>();
             outPoint.gameObject.hideFlags = HideFlags.HideInHierarchy;
             outPoint.gameObject.transform.parent = transform;
-            // outPoint = (ConnectionPoint)ScriptableObject.CreateInstance(typeof(ConnectionPoint));
             outPoint.Initialize(Id, ConnectionPointType.Out, StoryGraphStyles.OutPointStyle(), storyGraph);
 
             title = _title;
@@ -291,8 +279,6 @@ namespace StoryGraph
             {
                 SerializedProperties = new List<SerializedProperty>();
                 Labels = new List<string>();
-                // HasLabelGUI = new List<bool>();
-                // IsObjectField = new List<bool>();
                 StoryDrawers = new List<StoryDrawer>();
                 serializedObject = new SerializedObject(this);
 
@@ -328,7 +314,7 @@ namespace StoryGraph
                         currentSpacing += EditorGUI.GetPropertyHeight(SerializedProperties[i], true);
                     }
 
-                    else if (StoryDrawers[i] == StoryDrawer.UnityEvent || StoryDrawers[i] == StoryDrawer.Array)
+                    else if (StoryDrawers[i] == StoryDrawer.UnityEvent || StoryDrawers[i] == StoryDrawer.Array || StoryDrawers[i] == StoryDrawer.IntegerField)
                     {
                         GUI.BeginGroup(new Rect(0, (EditorGUIUtility.singleLineHeight * i), rect.width, rect.height));
                         EditorGUI.PropertyField(new Rect(0, currentSpacing, rect.width - 20, rect.height), SerializedProperties[i], GUIContent.none, true);
@@ -405,7 +391,6 @@ namespace StoryGraph
                         if (rect.Contains(e.mousePosition))
                         {
                             isDragged = true;
-                            // GUI.changed = true;
                             isSelected = true;
                             storyGraph.SelectedNode = this;
                             SelectNode(true);
@@ -414,7 +399,6 @@ namespace StoryGraph
                         }
                         else
                         {
-                            // GUI.changed = true;
                             isSelected = false;
                             SelectNode(false);
                             style = defaultNodeStyle;
@@ -424,14 +408,11 @@ namespace StoryGraph
 
                     if (e.button == 1 && rect.Contains(e.mousePosition))
                     {
-                        // GUI.changed = true;
                         isDragged = true;
                         isSelected = true;
                         storyGraph.SelectedNode = this;
                         SelectNode(true);
                         style = selectedNodeStyle;
-                        // ProcessContextMenu();
-                        // e.Use();
 
                         return true;
 
@@ -479,16 +460,21 @@ namespace StoryGraph
             storyGraph.SetConnectionsSelected(this, isSelected);
         }
 #endif
+
+        /// <summary>
+        /// Needed for IComparable. Sets order of MenuItems. Currently set to 0, meaning order of MenuItems are random
+        /// </summary>
         public int CompareTo(StoryNode storyNode)
         {
             return 0;
         }
 
-
+        /// <summary>
+        /// Sets node state to IsAwake and Executes the node's logic
+        /// </summary>
         public virtual void WakeUpNode(string _loopId)
         {
 
-            //initialize first loopId
             if (_loopId == "start" || LoopId == _loopId)
             {
                 LoopId = "Loop_" + Time.time + System.Guid.NewGuid().ToString();
@@ -498,31 +484,33 @@ namespace StoryGraph
                 LoopId = _loopId;
             }
 
-
             if (storyNodeState != StoryNodeState.IsDisabled)
             {
                 storyNodeState = StoryNodeState.IsAwake;
                 Execute();
             }
-
-
-
-
         }
 
+        /// <summary>
+        /// Sets state to IsDone, iterates times visited, then goes to the next node via the outpoint.
+        /// </summary>
         public void GoToNextNode()
         {
-            // Debug.Log(Id + " is Done");
             storyNodeState = StoryNodeState.IsDone;
             timesVisited++;
             outPoint.GoToNextNode(LoopId);
         }
-
+        /// <summary>
+        /// Execute is called either on Start, or when a Connection traverses to this StoryNode.   
+        /// </summary>
         public virtual void Execute()
         {
 
         }
 
+        /// <summary>
+        /// Sets node state to IsAsleep 
+        /// </summary>
         virtual public void DisableNode()
         {
             storyNodeState = StoryNodeState.IsAsleep;

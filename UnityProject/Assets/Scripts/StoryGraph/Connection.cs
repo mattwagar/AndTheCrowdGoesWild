@@ -30,14 +30,9 @@ namespace StoryGraph
         public Action<Connection> OnClickRemoveConnection;
         public Connection() { }
 
-        public Connection(ConnectionPoint inPoint, ConnectionPoint outPoint)
-        {
-            this.Id = "Connection_" + System.Guid.NewGuid().ToString(); ;
-            this.inPoint = inPoint;
-            this.outPoint = outPoint;
-            this.OnClickRemoveConnection = OnClickRemoveConnection;
-        }
-
+        /// <summary>
+        /// Constructor used instead of normal class constructor to integrate easier with GameObject Instantiate function 
+        /// </summary>
         public void Initialize(ConnectionPoint inPoint, ConnectionPoint outPoint, StoryGraph _storyGraph)
         {
             this.Id = "Connection_" + System.Guid.NewGuid().ToString(); ;
@@ -48,6 +43,9 @@ namespace StoryGraph
             animationCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
         }
 
+        /// <summary>
+        /// Draws BezierCurve based on whether it's currently selected or already attached to nodes.
+        /// </summary>
         public virtual void Draw()
         {
             if (IsDone)

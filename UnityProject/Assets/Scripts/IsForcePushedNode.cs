@@ -3,30 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using StoryGraph;
 
-public class IsForcePushedNode : StoryCondition
+public class IsForcePushedNode : ConditionNode
 {
-    public ForcePush ForcePush;
-
-
-    #if UNITY_EDITOR    
+    [StoryGraphField] public ForcePush ForcePush;
+ 
     public override string MenuName {get{return "Condition/Is Force Pushed";}}
 
-    public override void SetStyles()
-    {
-        base.SetStyles();    
-        nodeHeaderStyle = StoryGraphStyles.NodeConditionStyle();
-    }
-    public override void SetSerializedProperties()
-    {    
-        AddSerializedProperty("ForcePush", StoryDrawer.NoLabelPropertyField);
-    }
-    #endif
 
     public override void Execute()
     {
+        Debug.Log("IT MADE IT HERE THREE");
 
         if(ForcePush.pushed)
         {
+            Debug.Log("IT MADE IT HERE TOO");
             GoToTrueNode();
         } 
         else

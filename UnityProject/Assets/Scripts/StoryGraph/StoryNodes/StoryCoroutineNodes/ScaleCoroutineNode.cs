@@ -22,14 +22,14 @@ namespace StoryGraph
         {
 
             float journey = 0f;
-            Vector3 beginningScale = Origin.transform.localScale;
+            Vector3 startingScale = Origin.transform.localScale;
             while (journey <= Duration)
             {
                 journey = journey + Time.deltaTime;
                 float percent = Mathf.Clamp01(journey / Duration);
 
                 float curvePercent = AnimCurve.Evaluate(percent);
-                Origin.transform.localScale = Vector3.Lerp(beginningScale, Target.transform.localScale, curvePercent);
+                Origin.transform.localScale = Vector3.Lerp(startingScale, Target.transform.localScale, curvePercent);
 
                 yield return null;
             }

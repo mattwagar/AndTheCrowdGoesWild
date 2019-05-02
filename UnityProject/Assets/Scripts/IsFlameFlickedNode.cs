@@ -3,24 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using StoryGraph;
 
-public class IsFlameFlickedNode : StoryCondition {
+public class IsFlameFlickedNode : ConditionNode {
 
-	public FlameHandEvent Flame;
-
-
-    #if UNITY_EDITOR    
+	[StoryGraphField] public FlameHandEvent Flame;
+  
     public override string MenuName {get{return "Condition/Is Flame Flicked";}}
 
-    public override void SetStyles()
-    {
-        base.SetStyles();    
-        nodeHeaderStyle = StoryGraphStyles.NodeConditionStyle();
-    }
-    public override void SetSerializedProperties()
-    {    
-        AddSerializedProperty("Flame", StoryDrawer.NoLabelPropertyField);
-    }
-    #endif
 
     public override void Execute()
     {

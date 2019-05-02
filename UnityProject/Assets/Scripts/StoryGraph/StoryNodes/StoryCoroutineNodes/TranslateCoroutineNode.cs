@@ -23,14 +23,14 @@ namespace StoryGraph
 
             float journey = 0f;
 
-
+            Vector3 startingPosition = Origin.transform.position;
             while (journey <= Duration)
             {
                 journey = journey + Time.deltaTime;
                 float percent = Mathf.Clamp01(journey / Duration);
 
                 float curvePercent = AnimCurve.Evaluate(percent);
-                Origin.transform.position = Vector3.LerpUnclamped(Origin.transform.position, Target.transform.position, curvePercent);
+                Origin.transform.position = Vector3.LerpUnclamped(startingPosition, Target.transform.position, curvePercent);
                 yield return null;
             }
             GoToNextNode();

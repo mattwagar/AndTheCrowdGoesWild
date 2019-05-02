@@ -4,24 +4,12 @@ using UnityEngine;
 
 namespace StoryGraph
 {
-    public class PlayAnimationNode : StoryNode
+    public class PlayAnimationNode : ActionNode
     {
 
-        public Animation animation;
+        [StoryGraphField] public Animation animation;
 
-        #if UNITY_EDITOR    
         public override string MenuName {get{return "Action/Play Animation";}}
-        public override void SetStyles()
-        {
-            base.SetStyles();    
-            nodeHeaderStyle = StoryGraphStyles.NodeActionStyle();
-        }
-        public override void SetSerializedProperties()
-        {    
-            AddSerializedProperty("animation", StoryDrawer.NoLabelPropertyField);
-        }
-        #endif
-
 
         public override void Execute()
         {

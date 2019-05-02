@@ -6,13 +6,13 @@ namespace StoryGraph
 {
     public class EnableGameObjectAction : ActionNode
     {
-        [StoryGraphField] public GameObject go;
+        [StoryGraphField(StoryDrawer.NoLabelPropertyField)] public GameObject EnableObject;
 
         public override string MenuName { get { return "Game Object/Enable Game Object"; } }
 
         public override void Execute()
         {
-            go.SetActive(true);
+            EnableObject.SetActive(true);
             GoToNextNode();
         }
 

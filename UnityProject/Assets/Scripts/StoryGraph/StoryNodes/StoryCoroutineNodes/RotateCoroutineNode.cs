@@ -22,13 +22,13 @@ namespace StoryGraph
         {
 
             float journey = 0f;
+            Quaternion startingRotation = Origin.transform.rotation;
             while (journey <= Duration)
             {
                 journey = journey + Time.deltaTime;
                 float percent = Mathf.Clamp01(journey / Duration);
-
                 float curvePercent = AnimCurve.Evaluate(percent);
-                Origin.transform.rotation = Quaternion.Lerp(Origin.transform.rotation, Target.transform.rotation, curvePercent);
+                Origin.transform.rotation = Quaternion.Lerp(startingRotation, Target.transform.rotation, curvePercent);
 
                 yield return null;
             }

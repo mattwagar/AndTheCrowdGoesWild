@@ -1,4 +1,3 @@
-//Place anywhere in your unity project
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
