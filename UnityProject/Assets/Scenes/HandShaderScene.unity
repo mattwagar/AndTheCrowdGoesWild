@@ -199,7 +199,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400002, guid: ce6112dd14179d448958c91c5b4e8de2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.563
+      value: -4.55294
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: ce6112dd14179d448958c91c5b4e8de2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -207,7 +207,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: ce6112dd14179d448958c91c5b4e8de2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.6589675
+      value: -0.6668869
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: ce6112dd14179d448958c91c5b4e8de2, type: 3}
       propertyPath: m_LocalRotation.x
@@ -232,7 +232,7 @@ Prefab:
     - target: {fileID: 13700000, guid: ce6112dd14179d448958c91c5b4e8de2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 5dee6bf7d8396b24ba452fd96ffd5533, type: 2}
+      objectReference: {fileID: 2100000, guid: 746cf84ae389c9e4e806f8ae9f87f38b, type: 2}
     - target: {fileID: 100002, guid: ce6112dd14179d448958c91c5b4e8de2, type: 3}
       propertyPath: m_Name
       value: LoPoly_Rigged_Hand_Right (2)
@@ -240,6 +240,10 @@ Prefab:
     - target: {fileID: 400000, guid: ce6112dd14179d448958c91c5b4e8de2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.458
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: ce6112dd14179d448958c91c5b4e8de2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce6112dd14179d448958c91c5b4e8de2, type: 3}
