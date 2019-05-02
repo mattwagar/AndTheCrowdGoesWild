@@ -13,5 +13,8 @@ namespace StoryGraph
         [HideInInspector]
         public bool IsListenerSet = false;
 
+        public void DisableListener(){
+            StoryListenerAction = null;
+        }
     }
 }

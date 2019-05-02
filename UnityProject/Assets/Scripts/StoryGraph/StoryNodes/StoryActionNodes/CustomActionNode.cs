@@ -6,30 +6,16 @@ using UnityEngine.Events;
 
 namespace StoryGraph
 {
-    public class CustomActionNode : StoryNode
+    public class CustomActionNode : ActionNode
     {
+        public override string MenuName {get{return "Custom Action Node";}}
 
-        public UnityEvent onEvent;
-
-    #if UNITY_EDITOR    
-        public override string MenuName {get{return "Action/Custom Action Node";}}
-        public override void SetStyles()
-        {
-            base.SetStyles();    
-            nodeHeaderStyle = StoryGraphStyles.NodeActionStyle();
-        }
-
-        public override void SetSerializedProperties()
-        {    
-            AddSerializedProperty("onEvent", StorySerializedPropertyType.UnityEvent);
-        }
-    #endif
+        [StoryGraphField(StoryDrawer.UnityEvent)] public UnityEvent onEvent;
 
         public override void Execute()
         {
             onEvent.Invoke();
             GoToNextNode();
         }
-
     }
 }

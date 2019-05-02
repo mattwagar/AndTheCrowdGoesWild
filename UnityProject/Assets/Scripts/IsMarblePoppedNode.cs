@@ -3,24 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using StoryGraph;
 
-public class IsMarblePoppedNode : StoryCondition
+public class IsMarblePoppedNode : ConditionNode
 {
-    public PopMarbleEvent Marble;
-
-
-    #if UNITY_EDITOR    
+    [StoryGraphField] public PopMarbleEvent Marble;
+ 
     public override string MenuName {get{return "Condition/Is Marble Popped";}}
 
-    public override void SetStyles()
-    {
-        base.SetStyles();    
-        nodeHeaderStyle = StoryGraphStyles.NodeConditionStyle();
-    }
-    public override void SetSerializedProperties()
-    {    
-        AddSerializedProperty("Marble", StorySerializedPropertyType.NoLabelPropertyField);
-    }
-    #endif
 
     public override void Execute()
     {

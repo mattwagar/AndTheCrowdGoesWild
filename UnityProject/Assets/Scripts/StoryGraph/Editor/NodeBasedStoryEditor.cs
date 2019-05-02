@@ -24,8 +24,6 @@ namespace StoryGraph
         private Color backgroundColor;
         private Color smallLineColor;
         private Color thickLineColor;
-
-        // private Rect _zoomArea;
         private Rect clippedArea;
         
 
@@ -33,11 +31,11 @@ namespace StoryGraph
 
 
         #region OPEN WINDOW
-        [MenuItem("Window/Story Graph Editor")]
+        [MenuItem("Tools/StoryGraph Editor")]
         private static void OpenWindow()
         {
             NodeBasedStoryEditor window = GetWindow<NodeBasedStoryEditor>();
-            window.titleContent = new GUIContent("Story Graph Editor");
+            window.titleContent = new GUIContent("StoryGraph Editor");
         }
         #endregion
 
@@ -47,7 +45,6 @@ namespace StoryGraph
 
         private void OnEnable()
         {
-            // InitStyles();
             drawLockedStyle();
 
             backgroundColor = new Color(0.15f, 0.15f, 0.15f);
@@ -155,10 +152,6 @@ namespace StoryGraph
             DrawGrid(20, 0.2f, smallLineColor);
             DrawGrid(100, 0.4f, thickLineColor);
 
-            // _zoomArea = new Rect(0.0f, 0.0f, position.width, position.height);
-
-
-            // GUIUtility.ScaleAroundPivot(SelectedStoryGraph.Scale, SelectedStoryGraph.PivotPoint);
             DrawNodes();
             DrawConnections();
 
@@ -393,7 +386,7 @@ namespace StoryGraph
 
             for (int i = 0; i < StoryNodes.Count; i++)
             {
-                genericMenu.AddItem(new GUIContent(StoryNodes[i].MenuName), false, (storyNode) => OnClickAddStoryNode(storyNode, mousePosition), StoryNodes[i]);
+                genericMenu.AddItem(new GUIContent(StoryNodes[i].MenuNamePrefix+StoryNodes[i].MenuName), false, (storyNode) => OnClickAddStoryNode(storyNode, mousePosition), StoryNodes[i]);
             }
 
             genericMenu.ShowAsContext();
@@ -402,13 +395,13 @@ namespace StoryGraph
         private void OnClickAddStoryNode(System.Object _storyObject, Vector2 mousePosition)
         {
             StoryNode _storyNode = (StoryNode)_storyObject;
-            string _storyNodeName = _storyNode.MenuName.Contains('/') ? _storyNode.MenuName.Substring(_storyNode.MenuName.LastIndexOf("/") + 1) : _storyNode.MenuName;
+            string menuName = _storyNode.MenuNamePrefix + _storyNode.MenuName;
+            string _storyNodeName = menuName.Contains('/') ? menuName.Substring(menuName.LastIndexOf("/") + 1) : menuName;
 
             InitializeNodes();
             var storyNode = new GameObject().AddComponent(_storyNode.GetType()) as StoryNode;
             storyNode.gameObject.hideFlags = HideFlags.HideInHierarchy;
             storyNode.gameObject.transform.parent = SelectedStoryGraph.transform;
-            // var storyNode = (StoryNode)ScriptableObject.CreateInstance(_storyNode.GetType());
 
             storyNode.Initialize(_storyNodeName, mousePosition, 250, 90, SelectedStoryGraph);
             SelectedStoryGraph.Nodes.Add(storyNode);
@@ -427,7 +420,7 @@ namespace StoryGraph
     
         public static Rect Begin(float zoomScale, Rect screenCoordsArea)
         {
-            GUI.EndGroup();        // End the group Unity begins automatically for an EditorWindow to clip out the window tab. This allows us to draw outside of the size of the EditorWindow.
+            GUI.EndGroup();
     
             Rect clippedArea = RectExtensions.ScaleSizeBy(screenCoordsArea, 1.0f / zoomScale, RectExtensions.TopLeft(screenCoordsArea));
             
@@ -440,13 +433,6 @@ namespace StoryGraph
 
 
             GUI.matrix = translation * scale * translation.inverse * GUI.matrix;
-
-            // GUILayout.BeginHorizontal ();
-            // GUILayout.Space (clippedArea.center.x);
-            // GUILayout.BeginVertical ();
-            // GUILayout.Space (clippedArea.center.y);
-
-
 
             return clippedArea;
         }

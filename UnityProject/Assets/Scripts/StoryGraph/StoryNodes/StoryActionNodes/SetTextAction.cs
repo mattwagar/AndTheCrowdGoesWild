@@ -2,33 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using StoryGraph;
 
-public class SetTextAction : StoryNode
+namespace StoryGraph
 {
-
-    public Text Text;
-    public string TextField;
-
-    #if UNITY_EDITOR    
-    public override string MenuName {get{return "Action/Set Text";}}
-    public override void SetStyles()
+    public class SetTextAction : ActionNode
     {
-        base.SetStyles();    
-        nodeHeaderStyle = StoryGraphStyles.NodeActionStyle();
-    }
-    public override void SetSerializedProperties()
-    {    
-        AddSerializedProperty("Text");
-        AddSerializedProperty("TextField", StorySerializedPropertyType.NoLabelPropertyField);
-    }
-    #endif
 
+        [StoryGraphField(StoryDrawer.PropertyField)] public Text Text;
+        [StoryGraphField(StoryDrawer.NoLabelPropertyField)] public string TextField;
 
-    public override void Execute()
-    {
-        Text.text = TextField;
-        GoToNextNode();
+        public override string MenuName { get { return "UI/Set Text"; } }
+
+        public override void Execute()
+        {
+            Text.text = TextField;
+            GoToNextNode();
+        }
+
     }
-
 }
