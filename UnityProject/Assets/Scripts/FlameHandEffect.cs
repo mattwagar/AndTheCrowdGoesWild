@@ -16,11 +16,14 @@ public class FlameHandEffect : HandEffect
 	private IEnumerator HandEffectTransition()
 	{
 		float startTime = 0;
-		while(startTime > 1)
+		while(startTime < 1)
 		{
 			startTime += Time.deltaTime * transitionSpeed;
-			handEffectsMaterial.SetFloat("Burn", Mathf.Lerp(0f, burnAmount, startTime));
-			handEffectsMaterial.SetFloat("DissolveAmount", Mathf.Lerp(0f, dissolveAmount, startTime));
+			rightHandRenderer.materials[0].SetFloat("Burn", Mathf.Lerp(0f, burnAmount, startTime));
+			rightHandRenderer.materials[0].SetFloat("DissolveAmount", Mathf.Lerp(0f, dissolveAmount, startTime));
+			leftHandRenderer.materials[0].SetFloat("Burn", Mathf.Lerp(0f, burnAmount, startTime));
+			leftHandRenderer.materials[0].SetFloat("DissolveAmount", Mathf.Lerp(0f, dissolveAmount, startTime));
+			
 			yield return null;
 		}
 	}
