@@ -24,6 +24,8 @@ namespace StoryGraph
 
             float journey = 0f;
             Material mat = handRenderer.material;
+            float currentBurn = mat.GetFloat("_Burn");
+            float currentDissolve = mat.GetFloat("_Burn");
 
             while (journey <= Duration)
             {
@@ -31,8 +33,8 @@ namespace StoryGraph
                 float percent = Mathf.Clamp01(journey / Duration);
 
                 float curvePercent = AnimCurve.Evaluate(percent);
-                mat.SetFloat("_Burn", Mathf.Lerp(0f, burnAmount, curvePercent));
-                mat.SetFloat("_DissolveAmount", Mathf.Lerp(0f, dissolveAmount, curvePercent));
+                mat.SetFloat("_Burn", Mathf.Lerp(currentBurn, burnAmount, curvePercent));
+                mat.SetFloat("_DissolveAmount", Mathf.Lerp(currentDissolve, dissolveAmount, curvePercent));
                 yield return null;
             }
             GoToNextNode();
