@@ -15,7 +15,10 @@ namespace StoryGraph
         {
             for (int i = 0; i < gos.Length; i++)
             {
-                gos[i].SetActive(false);
+                if(gos[i] != null)
+                {
+                    gos[i].SetActive(false);
+                }
             }
             GoToNextNode();
         }
