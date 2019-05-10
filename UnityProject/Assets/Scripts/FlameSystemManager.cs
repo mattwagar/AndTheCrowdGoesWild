@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StoryGraph;
 
 public class FlameSystemManager : MonoBehaviour {
 
@@ -15,6 +16,8 @@ public class FlameSystemManager : MonoBehaviour {
 	public AudioClip fireAudio;
 	public AudioClip sparklerAudio;
 	public AudioClip fireworkAudio;
+
+	public StoryListener storyListener;
 
 	private bool handFlameToggle;
 	private bool isFlameAudioPlaying = true;
@@ -52,6 +55,7 @@ public class FlameSystemManager : MonoBehaviour {
 	{
 		if (state == FireState.firework){
 				fireworkAudioSource.Play();
+				storyListener.StoryListenerAction.Invoke();
 		} 
 		
 		if(sparkToggle)

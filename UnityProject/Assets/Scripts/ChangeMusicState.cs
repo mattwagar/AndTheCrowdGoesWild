@@ -15,7 +15,7 @@ public class ChangeMusicState : ActionNode
 
     public override void Execute()
     {
-        marbleMusicManager.musicState = musicState;
+        marbleMusicManager.ChangeState(musicState);
         GoToNextNode();
     }
 
