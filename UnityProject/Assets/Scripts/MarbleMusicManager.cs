@@ -15,9 +15,11 @@ public class MarbleMusicManager : MonoBehaviour
     public AudioSource audioSource;
     public float transitionSpeed = 0.5f;
     public float countdown = 0;
+    public float countdown_start = 10;
     public float currentVolume = 0;
 
-    private bool isPlaying = false;
+    public bool isPlaying = false;
+
 
     private IEnumerator RaiseVolume()
     {
@@ -49,8 +51,8 @@ public class MarbleMusicManager : MonoBehaviour
         {
             yield return new WaitUntil(() => isPlaying);
             StartCoroutine(RaiseVolume());
-            countdown = 10;
-            while(countdown != 0)
+            countdown = countdown_start;
+            while(countdown > 0)
             {
                 countdown -= Time.deltaTime;
                 yield return null;
@@ -69,12 +71,15 @@ public class MarbleMusicManager : MonoBehaviour
         {
             case MusicState.crystal:
                 audioSource.clip = happyMusic;
+                audioSource.Play();
                 break;
             case MusicState.fire:
                 audioSource.clip = excitedMusic;
+                audioSource.Play();
                 break;
             case MusicState.cloud:
                 audioSource.clip = terrifiedMusic;
+                audioSource.Play();
                 break;
             case MusicState.none:
                 audioSource.clip = null;
@@ -96,7 +101,7 @@ public class MarbleMusicManager : MonoBehaviour
     public void PlayMusic()
     {
         isPlaying = true;
-        countdown = 10;
+        countdown = countdown_start;
     }
 
 }
