@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StoryGraph;
 
 public enum MusicState {none, crystal, cloud, fire}
 public class MarbleMusicManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class MarbleMusicManager : MonoBehaviour
     public AudioClip happyMusic;
     public AudioClip excitedMusic;
     public AudioClip terrifiedMusic;
+    public StoryListener listener;
 
     public AudioSource audioSource;
     public float transitionSpeed = 0.5f;
@@ -94,6 +96,7 @@ public class MarbleMusicManager : MonoBehaviour
 
     public void ChangeState(MusicState newState)
     {
+        listener.StoryListenerAction.Invoke();
         musicState = newState;
         StartCoroutine(ChangeStateRoutine(newState));
     }
