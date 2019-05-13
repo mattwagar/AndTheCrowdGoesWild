@@ -61,8 +61,13 @@ public class GhostManager : MonoBehaviour
     {
         for (int i = 0; i < Ghosts.Length; i++)
         {
-            Ghosts[i].animator.Play("Running");
+            Ghosts[i].animator.Play("Wiggle");
+            Ghosts[i].material.mainTexture = TerriefiedGhostTex;
         }
+        // for (int i = 0; i < Ghosts.Length; i++)
+        // {
+        //     Ghosts[i].animator.Play("Running");
+        // }
     }
 
     public void Gasp()
@@ -70,9 +75,27 @@ public class GhostManager : MonoBehaviour
         if(state != GhostState.Clap){
             for (int i = 0; i < Ghosts.Length; i++)
             {
-                Ghosts[i].animator.Play("Gasp");
+                int rnd = Random.Range(0, 10);
+
+                if(rnd <= 4){
+                    Ghosts[i].animator.Play("Gasp");
+                    Ghosts[i].material.mainTexture = WowGhostTex;
+                }else if(rnd <= 8){
+                    Ghosts[i].animator.Play("Clap_02");
+                    Ghosts[i].material.mainTexture = HappyGhostTex;
+                }else if(rnd == 9){
+                    Ghosts[i].animator.Play("Wiggle");
+                    Ghosts[i].material.mainTexture = ExcitedGhostTex;
+                }
             }
+            state = GhostState.Clap;
         }
+        // if(state != GhostState.Clap){
+        //     for (int i = 0; i < Ghosts.Length; i++)
+        //     {
+        //         Ghosts[i].animator.Play("Gasp");
+        //     }
+        // }
     }
 
     public void Idle()

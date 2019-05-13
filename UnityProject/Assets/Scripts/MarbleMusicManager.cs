@@ -66,8 +66,8 @@ public class MarbleMusicManager : MonoBehaviour
 
     private IEnumerator ChangeStateRoutine(MusicState newState)
     {
-        if(isPlaying)
-            yield return StartCoroutine(LowerVolume());
+        // if(isPlaying)
+            // yield return StartCoroutine(LowerVolume());
         
         switch (newState)
         {
@@ -87,6 +87,7 @@ public class MarbleMusicManager : MonoBehaviour
                 audioSource.clip = null;
                 break;
         }
+        yield return null;
     }
 
     private void Start() 
